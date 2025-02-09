@@ -35,7 +35,7 @@ function RegisterPage() {
         };
 
         try {
-            const response = await fetch("http://localhost/bookstore_backend/register.php", {
+            const response = await fetch("http://localhost/bookstore_backend/auth/register.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData),
@@ -58,9 +58,9 @@ function RegisterPage() {
     }
 
     return (
-        <div className='register_page'>
+        <div className='registerPage'>
 
-            <div className='register_container'>
+            <div className='registerContainer'>
                 <h1>Create an Account</h1>
                 <h2>Please enter your info</h2>
                 <br/>
