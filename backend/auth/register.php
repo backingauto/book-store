@@ -3,17 +3,7 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Origin: *");
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "bookstore_db";
-
-$conn = new mysqli($host, $user, $password, $db);
-if ($conn->connect_error) {
-    echo json_encode(["success" => false, "message" => "Database connection failed"]);
-    exit();
-}
-
+include '../db_connection.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 if ($data == null) {

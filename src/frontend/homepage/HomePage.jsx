@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-function Homepage() {
+function HomePage() {
 
     return (
         <div>
-            <p>login page</p>
+            <p>home page</p>
         </div>
     )
 }
 
-export default Homepage;
+export default HomePage;

@@ -55,10 +55,10 @@ function LoginPage() {
 
                 <form onSubmit={handleForm}>
                 <label>Username:</label>
-                    <input type="text" name="username" value={usernameOrEmail} onChange={handleUsernameOrEmailChange} required />
+                    <input type="text" name="usernameOrEmail" value={usernameOrEmail} onChange={handleUsernameOrEmailChange} placeholder='enter your username or email' required />
 
                     <label>Password:</label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} required />
+                    <input type="password" name="password" value={password} onChange={handlePasswordChange} placeholder='enter your password' required />
 
                     <br/>
                     <button type="submit">Login</button>

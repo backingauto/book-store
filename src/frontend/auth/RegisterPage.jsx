@@ -83,8 +83,8 @@ function RegisterPage() {
                     <button type="submit">Register</button>
                 </form>
             </div>
-
-            <br/><Link to="/">Go back to home</Link>
+            <p>already have an account? <br/><Link to="/login">Click here to login!</Link></p>
+            <Link to="/">Go back to home</Link>
         </div>
     )
 }

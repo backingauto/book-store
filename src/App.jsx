@@ -1,9 +1,11 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './frontend/homepage/NavBar'
-import LandingPage from './frontend/homepage/LandingPage'
 import RegisterPage from './frontend/auth/RegisterPage';
 import LoginPage from './frontend/auth/LoginPage';
+import NavBar from './frontend/homepage/NavBar'
+import LandingPage from './frontend/homepage/LandingPage'
+import HomePage from './frontend/homepage/HomePage';
+
 
 function App() {
 
@@ -13,6 +15,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/homepage" element={<HomePage />} />
         </Routes>
     </BrowserRouter>
   )
