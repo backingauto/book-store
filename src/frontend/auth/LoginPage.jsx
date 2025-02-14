@@ -7,6 +7,7 @@ function LoginPage() {
 
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
 
     const sanitizeInput = (input) => DOMPurify.sanitize(input).trim();
 
@@ -28,15 +29,16 @@ function LoginPage() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData),
+                credentials: "include"
             });
 
             const data = await response.json();
 
             if (data.success) {
-                alert("Login successful! Redirecting to homepage...");
+                setMessage("Login Succesfully!");
                 navigate("/homepage");
             } else {
-                alert(data.message || "Login failed");
+                setMessage(data.message);
             }
 
         } catch (error) {
@@ -54,7 +56,7 @@ function LoginPage() {
                 <br/>
 
                 <form onSubmit={handleForm}>
-                <label>Username:</label>
+                <label>Username/Email:</label>
                     <input type="text" name="usernameOrEmail" value={usernameOrEmail} onChange={handleUsernameOrEmailChange} placeholder='enter your username or email' required />
 
                     <label>Password:</label>
@@ -66,6 +68,8 @@ function LoginPage() {
                     <br/>
                 </form>
             </div>
+            {message && <p className="message">{message}<br/></p>}
+        
             <p>no account? <br/><Link to="/register">Click here to sign up!</Link></p>
             <Link to="/">Go back to home</Link>
         </div>

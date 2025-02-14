@@ -1,8 +1,9 @@
 <?php
 header("Content-Type: application/json");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
 
 include '../db_connection.php';
 
@@ -52,16 +53,13 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param("si", $auth_token, $id);
 $stmt->execute();
 
-setcookie("auth_token", $auth_token, [
-    "expires" => time() + 86400,
-    "path" => "/",
-    "secure" => true,
-    "httponly" => true,
-    "samesite" => "Strict"
-]);
+//store auth_token in session
+session_start();
+$_SESSION["auth_token"] = $auth_token;
 
 //success
-echo json_encode(["success" => true, "message" => "Login successful", "user" => ["id" => $id, "username" => $username, "email" => $email]]);
+echo json_encode(["success" => true, "message" => "Login successful", "user" => 
+["id" => $id, "username" => $username, "email" => $email]]);
 
 $stmt->close();
 $conn->close();
