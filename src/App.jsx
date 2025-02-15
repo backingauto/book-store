@@ -5,7 +5,7 @@ import LoginPage from './frontend/auth/LoginPage';
 import LandingPage from './frontend/homepage/LandingPage'
 import HomePage from './frontend/homepage/HomePage';
 import Dashboard from './frontend/features/Dashboard';
-import SellBook from './frontend/features/SellBook'
+import AddBook from './frontend/features/AddBook'
 
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/sellbook" element={<SellBook />} />
+          <Route path="/addbook" element={<AddBook />} />
         </Routes>
     </BrowserRouter>
   )

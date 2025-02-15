@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";   
 import DOMPurify from "dompurify";
-import './auth.css';
+import './Auth.css';
 
 function LoginPage() {
 

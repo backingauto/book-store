@@ -18,6 +18,7 @@ function NavBar() {
                     
                     <button className="navButton">Wishlist</button>
                     <button className="navButton">Shopping Cart</button>
+                    <button className="navButton">Purchase History</button>
                 </div>
             </div>
 

@@ -9,8 +9,8 @@ function Dashboard() {
             <NavBar />
 
             <div className='dashboardPage'>
-                <Link to="/sellBook">
-                    <button className='sellBooksButton'>Sell books</button>
+                <Link to="/addBook">
+                    <button className='addBooksButton'>Sell books</button>
                 </Link>
             </div>
             <p>dashboard</p>
