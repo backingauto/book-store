@@ -1,5 +1,6 @@
 import './Dashboard.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";  
 import NavBar from '../NavBar';
 
 function Dashboard() {
@@ -8,12 +9,10 @@ function Dashboard() {
         <div>
             <NavBar />
 
-            <div className='dashboardPage'>
-                <Link to="/sellBook">
-                    <button className='sellBooksButton'>Sell books</button>
-                </Link>
+            <div className='sellBookPage'>
+                
             </div>
-            <p>dashboard</p>
+            <p>sell books</p>
         </div>
     )
 }
