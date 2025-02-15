@@ -54,7 +54,7 @@ function LoginPage() {
                 <br/>
 
                 <form onSubmit={handleForm}>
-                <label>Username:</label>
+                <label>Username/Email:</label>
                     <input type="text" name="usernameOrEmail" value={usernameOrEmail} onChange={handleUsernameOrEmailChange} placeholder='enter your username or email' required />
 
                     <label>Password:</label>

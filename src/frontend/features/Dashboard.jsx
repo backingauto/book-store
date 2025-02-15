@@ -1,14 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar';
 
-function HomePage() {
+function Dashboard() {
 
     return (
         <div>
-            <NavBar />
-            <p>home page</p>
+            <p>dashboard</p>
         </div>
     )
 }
 
-export default HomePage;
+export default Dashboard;
