@@ -1,19 +1,106 @@
-.dashboardPage {
-    position: absolute;
-    top: 180px;
-    left: 20px;
+.addBookPage {
+    max-width: 850px;
+    margin: 150px auto; /* Increased margin to move it further down */
+    padding: 30px;
+    background: #222;
+    text-align: center;
+    color: white;
 }
 
-.addBooksButton {
-    background-color: #fff;
-    color: #000;
-    padding: 15px 20px;
-    font-size: 18px;
+.addBookPage h2 {
+    margin-bottom: 25px; /* More spacing below the title */
+}
+
+.addBookForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+    padding: 20px;
+    border: 2px solid #777; /* Subtle grayish border */
     border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Softer shadow */
+}
+
+.form-grid div {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.full-width {
+    grid-column: span 3;
+    padding: 10px;
+}
+
+.addBookForm label {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.addBookForm input,
+.addBookForm textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: black;
+    color: white;
+    font-size: 16px;
+}
+
+.addBookForm textarea {
+    resize: none;
+    height: 120px;
+}
+
+.addBookForm button {
+    padding: 14px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
     transition: 0.3s;
+    margin-top: 30px; /* Increased margin to move it down */
+    width: 30%;
+    align-self: center;
+}
+
+
+.addBookForm button:hover {
+    background-color: #45a049;
+}
+
+.message {
+    margin-top: 15px;
+    color: yellow;
     font-weight: bold;
 }
 
-.addBooksButton:hover {
-    background-color: #ddd;
+/* Responsive layout */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .full-width {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .full-width {
+        grid-column: span 1;
+    }
 }

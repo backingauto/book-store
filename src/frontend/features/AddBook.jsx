@@ -1,12 +1,9 @@
 import './Dashboard.css';
-import { useNavigate } from 'react-router-dom';
 import { useState } from "react";  
 import DOMPurify from "dompurify";
 import NavBar from '../NavBar';
 
 function AddBook() {
-
-    const navigate = useNavigate();
 
     const [message, setMessage] = useState("");
     const [cover, setCover] = useState(null);
@@ -54,24 +51,53 @@ function AddBook() {
     return (
         <div>
             <NavBar />
-            <div className='addBookPage'>
+            <div className="addBookPage">
                 <h2>Sell a Book</h2>
-                <form onSubmit={handleSubmit} className="sellBookForm">
-                    <input type="text" name="title" placeholder="Book Title" required />
-                    <input type="text" name="author" placeholder="Author" required />
-                    <input type="text" name="genre" placeholder="Genre" />
-                    <input type="number" name="price" placeholder="Price ($)" required />
-                    <input type="number" name="stock" placeholder="Stock Quantity" required />
-                    <textarea name="description" placeholder="Book Description"></textarea>
-                    <input type="file" accept="image/*" onChange={handleFileChange} required />
-
+                <form onSubmit={handleSubmit} className="addBookForm">
+                    <div className="form-grid">
+                        <div>
+                            <label>Book Title</label>
+                            <input type="text" name="title" placeholder="book title" required />
+                        </div>
+    
+                        <div>
+                            <label>Author</label>
+                            <input type="text" name="author" placeholder="author name" required />
+                        </div>
+    
+                        <div>
+                            <label>Genre</label>
+                            <input type="text" name="genre" placeholder="genre" />
+                        </div>
+    
+                        <div>
+                            <label>Price ($)</label>
+                            <input type="number" name="price" placeholder="price" required />
+                        </div>
+    
+                        <div>
+                            <label>Stock Quantity</label>
+                            <input type="number" name="stock" placeholder="stock quantity" required />
+                        </div>
+    
+                        <div className="full-width">
+                            <label>Description</label>
+                            <textarea name="description" placeholder="book description" required />
+                        </div>
+    
+                        <div className="full-width">
+                            <label>Upload Cover</label>
+                            <input type="file" accept="image/*" onChange={handleFileChange} required />
+                        </div>
+                    </div>
+    
                     <button type="submit">Submit</button>
                 </form>
-
+    
                 {message && <p className="message">{message}</p>}
             </div>
         </div>
-    )
+    );
 }
 
 export default AddBook;
