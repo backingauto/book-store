@@ -7,14 +7,19 @@
     color: white;
 }
 
-.addBookPage h2 {
-    margin-bottom: 25px; /* More spacing below the title */
-}
-
+/* Wrap entire form, including the submit button, inside the border */
 .addBookForm {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 20px;
+    border: 2px solid #777; /* Subtle grayish border */
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Softer shadow */
+}
+
+.addBookPage h2 {
+    margin-bottom: 25px; /* More spacing below the title */
 }
 
 .form-grid {
@@ -22,10 +27,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     align-items: start;
-    padding: 20px;
-    border: 2px solid #777; /* Subtle grayish border */
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1); /* Softer shadow */
+    padding: 10px;
 }
 
 .form-grid div {
@@ -61,6 +63,7 @@
     height: 120px;
 }
 
+/* Submit button is now inside the form border */
 .addBookForm button {
     padding: 14px;
     font-size: 18px;
@@ -70,11 +73,10 @@
     cursor: pointer;
     border-radius: 6px;
     transition: 0.3s;
-    margin-top: 30px; /* Increased margin to move it down */
+    margin-top: 20px; /* Keep spacing between fields and button */
     width: 30%;
     align-self: center;
 }
-
 
 .addBookForm button:hover {
     background-color: #45a049;

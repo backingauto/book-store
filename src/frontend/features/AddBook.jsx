@@ -15,7 +15,7 @@ function AddBook() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = formData();
+        const formData = new formData();
 
         formData.append("title", DOMPurify.sanitize(event.target.title.value));
         formData.append("author", DOMPurify.sanitize(event.target.author.value));
@@ -36,8 +36,8 @@ function AddBook() {
                 body: formData
             });
 
-            const data = await response.json();
-            if (data.success) {
+            const result = await response.json();
+            if (result.success) {
                 setMessage("Book uploaded successfully!");
             } else {
                 setMessage(result.error || "Failed to upload book.");

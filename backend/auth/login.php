@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Credentials: true");
 
-include '../db_connection.php';
+include '../security.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 if ($data == null) {
@@ -12,8 +12,8 @@ if ($data == null) {
     exit();
 }
 
-$usernameOrEmail = $data["usernameOrEmail"];
-$password = $data["password"];
+$usernameOrEmail = sanitize_input($data["usernameOrEmail"]);
+$password = sanitize_input($data["password"]);
 
 if (empty($usernameOrEmail)) {
     echo json_encode(["success"=>false, "message"=>"Username or email is empty"]);
