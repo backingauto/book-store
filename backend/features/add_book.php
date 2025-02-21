@@ -1,7 +1,6 @@
 <?php
 header("Content-Type: application/json");
 header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 include '../security.php';
@@ -38,7 +37,9 @@ try {
 
     //move the cover image to the cover dir
     $temp_cover_name = uniqid("cover_") . "." . $cover_extension;
-    $upload_path = "../cover/" . $temp_cover_name;
+    $upload_directory = "../../cover/";
+    $upload_path = $upload_directory . $temp_cover_name;
+    
     if (!move_uploaded_file($cover["tmp_name"], $upload_path)) {
         echo json_encode(["success" => false, "error" => "File upload failed"]);
         exit();

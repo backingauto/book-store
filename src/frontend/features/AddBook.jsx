@@ -15,7 +15,7 @@ function AddBook() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const formData = new formData();
+        const formData = new FormData();
 
         formData.append("title", DOMPurify.sanitize(event.target.title.value));
         formData.append("author", DOMPurify.sanitize(event.target.author.value));
@@ -33,6 +33,7 @@ function AddBook() {
         try {
             const response = await fetch("http://localhost/bookstore_backend/features/add_book.php", {
                 method: "POST",
+                credentials: "include",
                 body: formData
             });
 

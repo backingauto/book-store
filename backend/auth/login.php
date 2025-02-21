@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Origin: http://localhost:5173");
 header("Access-Control-Allow-Credentials: true");
 
 include '../security.php';
@@ -61,7 +61,7 @@ setcookie("auth_token", $auth_token, [
 ]);
 
 //success
-echo json_encode(["success" => true, "message" => "Login successful", "user" => ["id" => $id, "username" => $username, "email" => $email]]);
+echo json_encode(["success" => true, "message" => "Login successful", "user" => ["id" => $id, "username" => $username, "email" => $email, "auth_token" => $auth_token]]);
 
 $stmt->close();
 $conn->close();
