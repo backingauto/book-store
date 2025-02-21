@@ -3,7 +3,7 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Origin: *");
 
-include '../db_connection.php';
+include '../security.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 if ($data == null) {
@@ -11,9 +11,9 @@ if ($data == null) {
     exit();
 }
 
-$username = $data["username"];
-$email = $data["email"];
-$password = $data["password"];
+$username = sanitize_input($data["username"]);
+$email = sanitize_input($data["email"]);
+$password = sanitize_input($data["password"]);
 
 // check if empty
 if (empty($username)) {

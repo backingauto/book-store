@@ -1,0 +1,47 @@
+.navBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: flex-start;
+    z-index: 1000; /* keeps navbar above other elements */
+    font-size: 18px;
+}
+
+.navContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.navLinks {
+    display: flex;
+    gap: 15px;
+}
+
+.navButton {
+    background: none;
+    color: white;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.navButton:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.logoutButton {
+    align-self: center;
+    margin-right: 20px;
+    margin-left: auto;
+}

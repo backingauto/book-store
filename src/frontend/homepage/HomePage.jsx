@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";   
+import NavBar from '../NavBar';
 
 function HomePage() {
 

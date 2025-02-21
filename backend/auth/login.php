@@ -1,11 +1,6 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-
-include '../db_connection.php';
+include '../security.php';
 
 $data = json_decode(file_get_contents("php://input"), true);
 if ($data == null) {
@@ -13,8 +8,8 @@ if ($data == null) {
     exit();
 }
 
-$usernameOrEmail = $data["usernameOrEmail"];
-$password = $data["password"];
+$usernameOrEmail = sanitize_input($data["usernameOrEmail"]);
+$password = sanitize_input($data["password"]);
 
 if (empty($usernameOrEmail)) {
     echo json_encode(["success"=>false, "message"=>"Username or email is empty"]);
@@ -58,8 +53,7 @@ session_start();
 $_SESSION["auth_token"] = $auth_token;
 
 //success
-echo json_encode(["success" => true, "message" => "Login successful", "user" => 
-["id" => $id, "username" => $username, "email" => $email]]);
+echo json_encode(["success" => true, "message" => "Login successful", "user" => ["id" => $id, "username" => $username, "email" => $email, "auth_token" => $auth_token]]);
 
 $stmt->close();
 $conn->close();
