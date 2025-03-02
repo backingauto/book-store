@@ -28,6 +28,8 @@ function HomePage() {
 
     return (
         <div className='homepage'>
+            <NavBar />
+            
             <div>   
                 <p>home page</p>
             </div>

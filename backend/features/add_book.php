@@ -1,8 +1,4 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
 include '../security.php';
 
 $seller_email = validate_auth_token($conn);
