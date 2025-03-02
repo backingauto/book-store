@@ -1,10 +1,5 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Credentials: true");
-
-include '../db_connection.php';
+include '../security.php';
 
 //check if auth_token exsits
 if (isset($_COOKIE["auth_token"])) {
@@ -18,7 +13,7 @@ if (isset($_COOKIE["auth_token"])) {
     $stmt->close();
 
     //expire the cookie
-    setcookie("auth_token", "", time()-3600);
+    setcookie("auth_token", "", time()-86400, "/");
 }
 
 echo json_encode(["success" => true, "message" => "logout successfully"]);

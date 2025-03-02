@@ -1,41 +1,50 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from "react";   
+import { useState, useEffect } from "react";   
 import NavBar from '../NavBar';
 
 function HomePage() {
 
     const navigate = useNavigate();
+    const [books, setBooks] = useState([]);
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch("http://localhost/bookstore_backend/auth/logout.php", {
-                method: "POST"
-            });
+    useEffect(() => {
+        const fetchBooks = async () => {
+            try {
+                const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php", {
+                    method: "GET",
+                    credentials: "include"
+                });
 
-            const data = await response.json();
+                const data = await response.json();
+                if (data.success) {
+                    setBooks(data.books);
+                } else {
+                    setError("Failed to fetch books.");
+                }
 
-            if (data.success) {
-                navigate("/");
-            } else {
-                alert("Logout failed: " + data.message);
-            }            
-            
-        } catch (error) {
-            console.error("Error:", error);
-            alert("An error occurred while logging out.");
+            } catch (error) {
+                console.error("Error fetching books:", error);
+            }
         }
-    }
+
+        fetchBooks();
+    }, [])
 
     return (
         <div className='homepage'>
             <NavBar />
-            
-            <div>   
-                <p>home page</p>
-            </div>
 
-            <div className='logout_button'>
-                <button onClick={handleLogout}>logout</button>
+            <div className='allBooksContainer'>
+                {books.map((book) => (
+                    <div key={book.id} className='bookContainer'>
+                        <Link to={"/book/" + book.id}>
+                            <img src={book.image_url} className='bookCover'></img>
+                        </Link>
+                        <h3>{book.title}</h3>
+                        <p>{book.author}</p>
+                        <p>{book.price}</p>
+                    </div>
+                ))}
             </div>
         </div>
     )

@@ -31,7 +31,7 @@ function AddBook() {
         }
 
         try {
-            const response = await fetch("http://localhost/bookstore_backend/features/add_book.php", {
+            const response = await fetch("http://localhost/bookstore/bookstore_backend/features/add_book.php", {
                 method: "POST",
                 credentials: "include",
                 body: formData

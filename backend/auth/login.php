@@ -48,9 +48,14 @@ $stmt = $conn->prepare($query);
 $stmt->bind_param("si", $auth_token, $id);
 $stmt->execute();
 
-//store auth_token in session
-session_start();
-$_SESSION["auth_token"] = $auth_token;
+//set auth_token cookie
+setcookie("auth_token", $auth_token, [
+    "expires" => time() + 86400, // 1 day expiration
+    "path" => "/",
+    "httponly" => true,
+    "samesite" => "Lax"
+]);
+
 
 //success
 echo json_encode(["success" => true, "message" => "Login successful", "user" => ["id" => $id, "username" => $username, "email" => $email, "auth_token" => $auth_token]]);

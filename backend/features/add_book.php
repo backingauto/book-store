@@ -41,7 +41,7 @@ try {
         exit();
     }
 
-    $image_url = "http://localhost/book-store/cover/" . $temp_cover_name;
+    $image_url = "http://localhost/bookstore/cover" . $temp_cover_name;
 
     $query = "INSERT INTO books (title, author, description, image_url, price, genre, stock, seller_email) VALUES (?,?,?,?,?,?,?,?)";
     $stmt = $conn->prepare($query);

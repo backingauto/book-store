@@ -10,9 +10,10 @@ function sanitize_input($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
-//return email from users
+//return user email from auth_token
 function validate_auth_token($conn) {
     if (!isset($_COOKIE["auth_token"])) {
+        http_response_code(401);
         echo json_encode(["success" => false, "error" => "no auth token"]);
         exit();
     }
