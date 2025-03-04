@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";   
 import NavBar from '../NavBar';
+import "./HomePage.css";
 
 function HomePage() {
 
@@ -19,7 +20,7 @@ function HomePage() {
                 if (data.success) {
                     setBooks(data.books);
                 } else {
-                    setError("Failed to fetch books.");
+                    console.error("Failed to fetch books.");
                 }
 
             } catch (error) {
@@ -40,9 +41,9 @@ function HomePage() {
                         <Link to={"/book/" + book.id}>
                             <img src={book.image_url} className='bookCover'></img>
                         </Link>
-                        <h3>{book.title}</h3>
-                        <p>{book.author}</p>
-                        <p>{book.price}</p>
+                        <h3 className='bookTitle'> {book.title}</h3>
+                        <p className='bookAuthor'>{book.author}</p>
+                        <p className='bookPrice'>{book.price}</p>
                     </div>
                 ))}
             </div>

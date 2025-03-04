@@ -1,10 +1,13 @@
 import './Dashboard.css';
 import { useState } from "react";  
 import DOMPurify from "dompurify";
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar';
 
 function AddBook() {
 
+    const navigate = useNavigate();
+    
     const [message, setMessage] = useState("");
     const [cover, setCover] = useState(null);
 
@@ -39,13 +42,14 @@ function AddBook() {
 
             const result = await response.json();
             if (result.success) {
-                setMessage("Book uploaded successfully!");
+                setMessage("Book uploaded successfully! Redirecting to homepage");
+                navigate("/homepage");
             } else {
                 setMessage(result.error || "Failed to upload book.");
             }
 
         } catch (error) {
-            setMessage("error uploading book, please try again");
+            setMessage("error uploading book, please try again" + error);
         }
     }
 

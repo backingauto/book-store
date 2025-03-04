@@ -33,7 +33,7 @@ try {
 
     //move the cover image to the cover dir
     $temp_cover_name = uniqid("cover_") . "." . $cover_extension;
-    $upload_directory = "../../cover/";
+    $upload_directory = "C:/xampp/htdocs/bookstore/cover/";
     $upload_path = $upload_directory . $temp_cover_name;
     
     if (!move_uploaded_file($cover["tmp_name"], $upload_path)) {
@@ -41,7 +41,7 @@ try {
         exit();
     }
 
-    $image_url = "http://localhost/bookstore/cover" . $temp_cover_name;
+    $image_url = "http://localhost/bookstore/cover/" . $temp_cover_name;
 
     $query = "INSERT INTO books (title, author, description, image_url, price, genre, stock, seller_email) VALUES (?,?,?,?,?,?,?,?)";
     $stmt = $conn->prepare($query);

@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import RegisterPage from './frontend/auth/RegisterPage';
 import LoginPage from './frontend/auth/LoginPage';
 import LandingPage from './frontend/homepage/LandingPage'
@@ -11,7 +11,7 @@ import AddBook from './frontend/features/AddBook'
 function App() {
 
   return (
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -20,7 +20,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/addbook" element={<AddBook />} />
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
