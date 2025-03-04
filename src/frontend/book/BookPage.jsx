@@ -5,8 +5,7 @@
 
     function BookPage() {
 
-        const { bookID } = useParams();
-        const navigate = useNavigate();
+        const { bookId } = useParams();
 
         const [book, setBook] = useState(null);
         const [message, setMessage] = useState("");
@@ -14,7 +13,7 @@
         useEffect(() => {
             const fetchBookInfo = async () => {
                 try {
-                    const response = await fetch("http://localhost/bookstore/bookstore_backend/book/fetch_book_info.php", {
+                    const response = await fetch(`http://localhost/bookstore/bookstore_backend/book/fetch_book_info.php?id=${bookId}`, {
                         method: "GET",
                         credentials: "include"
                     });
@@ -34,11 +33,16 @@
             }
 
             fetchBookInfo();
-        }, [bookID])
+        }, [bookId])
 
         if (message) {
             return <p className='message'>{message}</p>;
         }
+
+        if (!book) {
+            return <p className="loading">Loading book details...</p>;
+        }
+        
 
         return (
             <div className='bookPage'>
