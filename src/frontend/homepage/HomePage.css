@@ -27,7 +27,7 @@ html, body {
 
 /* Individual book card */
 .bookContainer {
-    width: calc(25% - 20px); /* ✅ Ensures 5 books per row */
+    width: calc(20% - 20px); /* ✅ Ensures 5 books per row */
     margin-bottom: 40px; /* ✅ More vertical spacing between rows */
     text-align: center;
 }
@@ -40,24 +40,32 @@ html, body {
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2); /* ✅ Stronger shadow effect */
 }
 
+/* Book text container */
+.bookText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8px; /* ✅ Reduce space between cover and text */
+    line-height: 1.2; /* ✅ Ensure consistent spacing */
+}
+
 /* Book title */
 .bookTitle {
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-size: 20px; /* ✅ Slightly bigger text */
+    font-size: 18px;
     font-weight: bold;
+    margin: 5px 0; /* ✅ Less space between elements */
 }
 
 /* Author name */
 .bookAuthor {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: normal;
+    margin: 3px 0; /* ✅ Keeps text closer */
 }
 
 /* Book price */
 .bookPrice {
-    font-size: 16px;
-    font-weight: normal;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 3px 0; /* ✅ Prevents large gaps */
 }
