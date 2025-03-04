@@ -27,7 +27,6 @@ function LoginPage() {
         try {
             const response = await fetch("http://localhost/bookstore/bookstore_backend/auth/login.php", {
                 method: "POST",
-                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData),
                 credentials: "include"

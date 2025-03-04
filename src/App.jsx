@@ -5,7 +5,8 @@ import LoginPage from './frontend/auth/LoginPage';
 import LandingPage from './frontend/homepage/LandingPage'
 import HomePage from './frontend/homepage/HomePage';
 import Dashboard from './frontend/features/Dashboard';
-import AddBook from './frontend/features/AddBook'
+import AddBook from './frontend/features/AddBook';
+import BookPage from './frontend/book/BookPage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/addbook" element={<AddBook />} />
+          <Route path="/book/:bookId" element={<BookPage />} />
         </Routes>
     </HashRouter>
   )
