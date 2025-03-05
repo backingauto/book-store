@@ -7,7 +7,7 @@ if (!isset($data["bookId"])) {
     exit();
 }
 
-$bookID = intval($data["bookId"]);
+$bookID = $data["bookId"];
 $user_email = validate_auth_token($conn);
 
 try {
@@ -45,7 +45,7 @@ try {
     $stmt->close();
     $conn->close();
 
-    echo json_encode(["success" => true, "wishlisted" => $wishlisted]);
+    echo json_encode(["success" => true, "wishlisted" => $wishlisted, "wishlist" => $updatedWishlist]);
 
 } catch (Exception $error) {
     echo json_encode(["success:" => false, "error:" => $error.getMessage()]);

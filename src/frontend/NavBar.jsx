@@ -40,7 +40,9 @@ function NavBar() {
                         <button className="navButton">Dashboard</button>
                     </Link>
                     
-                    <button className="navButton">Wishlist</button>
+                    <Link to="/wishListPage">
+                        <button className="navButton">Wishlist</button>
+                    </Link>
                     <button className="navButton">Shopping Cart</button>
                     <button className="navButton">Purchase History</button>
                 </div>

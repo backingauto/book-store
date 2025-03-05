@@ -7,6 +7,7 @@ import HomePage from './frontend/homepage/HomePage';
 import Dashboard from './frontend/features/Dashboard';
 import AddBook from './frontend/features/AddBook';
 import BookPage from './frontend/book/BookPage';
+import WishListPage from './frontend/features/WishListPage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/addbook" element={<AddBook />} />
           <Route path="/book/:bookId" element={<BookPage />} />
+          <Route path="/wishListPage" element={<WishListPage />} />
         </Routes>
     </HashRouter>
   )
