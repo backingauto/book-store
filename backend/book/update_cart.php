@@ -36,7 +36,7 @@ try {
         $shoppingCartArray[] = $bookID;
     }
     //remove 1 book from shopping_cart
-    elseif ($action === "remove") {
+    elseif ($action === "remove" && !empty($shoppingCartArray)) {
         $key = array_search($bookID, $shoppingCartArray);
         if ($key !== false) {
             unset($shoppingCartArray[$key]);
@@ -52,8 +52,10 @@ try {
     $stmt->close();
 
     $inShoppingCart = 0;
-    $counts = array_count_values($shoppingCartArray);
-    $inShoppingCart = $counts[$bookID] ?? 0;
+    if (!empty($shoppingCartArray)) {
+        $counts = array_count_values($shoppingCartArray);
+        $inShoppingCart = $counts[$bookID] ?? 0;
+    }
 
     echo json_encode(["success" => true, "inShoppingCart" => $inShoppingCart]);
 

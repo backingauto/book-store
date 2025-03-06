@@ -51,7 +51,7 @@ try {
     if ($shoppingCartStr && !empty($shoppingCartStr["shopping_cart"])) {
         $shoppingCartArray = explode(",", $shoppingCartStr["shopping_cart"]);
         $counts = array_count_values($shoppingCartArray);
-        $inShoppingCart = $counts[$bookID];
+        $inShoppingCart = isset($counts[$bookID]) ? $counts[$bookID] : 0;
     }
 
     echo json_encode(["success" => true, "book" => $book, "isWishlist" => $isWishlist, "inShoppingCart" => $inShoppingCart]);
