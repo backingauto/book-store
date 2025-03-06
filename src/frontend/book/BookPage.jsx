@@ -11,6 +11,7 @@ function BookPage() {
     const [book, setBook] = useState(null);
     const [message, setMessage] = useState("");
     const [wishlist, setWishList] = useState(false);
+    const [shoppingCart, setShoppingCart] = useState(0);   //number of this book in the shopping cart
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -24,6 +25,7 @@ function BookPage() {
                 if (data.success) {
                     setBook(data.book);
                     setWishList(data.isWishlist);
+                    setShoppingCart(data.inShoppingCart);
                 } else {
                     console.error("Failed to load book info.");
                     setMessage("Failed to load book info.");
@@ -66,7 +68,51 @@ function BookPage() {
             console.error("Error updating wishlist:", error);
         }
     }
+
+    const addToShoppingCart = async () => {
+        try {
+            const response = await fetch("http://localhost/bookstore/bookstore_backend/book/update_cart.php", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookId, action: "add" })
+            });
+            const data = await response.json();
+            if (data.success) {
+                setShoppingCart(prevCount => prevCount + 1);
+            } else {
+                console.error("Failed to update ShoppingCart.");
+            }
+            
+        } catch (error) {
+            console.error("Error updating ShoppingCart:", error);
+        }
+    }
     
+    const removeFromShoppingCart = async () => {
+        //ingore
+        if (shoppingCart === 0) {
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost/bookstore/bookstore_backend/book/update_cart.php", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookId, action: "remove" })
+            });
+            const data = await response.json();
+            if (data.success) {
+                setShoppingCart(prevCount => prevCount - 1);
+            } else {
+                console.error("Failed to update ShoppingCart.");
+            }
+            
+        } catch (error) {
+            console.error("Error updating ShoppingCart:", error);
+        }
+    }
 
     return (
         <div className='bookPage'>
@@ -87,6 +133,12 @@ function BookPage() {
                 {wishlist ? <FaHeart/> : <FaRegHeart/>}
                 {wishlist ? " Remove from wishlist" : " Add to wishlist"}
             </button>
+
+            <div className='shoppingCartControls'>
+                <button className="cartButton" onClick={removeFromShoppingCart} disabled={shoppingCart === 0}>-</button>
+                <span className="cartQuantity">{shoppingCart}</span>
+                <button className="cartButton" onClick={addToShoppingCart}>+</button>
+            </div>
         </div>
     )
 

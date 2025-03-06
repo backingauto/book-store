@@ -32,14 +32,29 @@ try {
     $userWishlist = $wishlistResult->fetch_assoc();
     $stmt->close();
 
+    //get the wishlist
     $isWishlist = false;
     if ($userWishlist && !empty($userWishlist["wishlist"])) {
-        $wishlistArray = explode(",", $userWishlist['wishlist']); //string to array
+        $wishlistArray = explode(",", $userWishlist["wishlist"]); //string to array
         $isWishlist = in_array($bookID, $wishlistArray);
     }
 
+    //get the shopping cart
+    $shoppingCartQuery = "SELECT shopping_cart FROM users WHERE email = ?";
+    $stmt = $conn->prepare($shoppingCartQuery);
+    $stmt->bind_param("s", $userEmail);
+    $stmt->execute();
+    $shoppingCartResult = $stmt->get_result();
+    $shoppingCartStr = $shoppingCartResult->fetch_assoc();
 
-    echo json_encode(["success" => true, "book" => $book, "isWishlist" => $isWishlist]);
+    $inShoppingCart = 0;
+    if ($shoppingCartStr && !empty($shoppingCartStr["shopping_cart"])) {
+        $shoppingCartArray = explode(",", $shoppingCartStr["shopping_cart"]);
+        $counts = array_count_values($shoppingCartArray);
+        $inShoppingCart = $counts[$bookID];
+    }
+
+    echo json_encode(["success" => true, "book" => $book, "isWishlist" => $isWishlist, "inShoppingCart" => $inShoppingCart]);
 
 } catch (Exception $e) {
     $response = ["success" => false, "error" => $e->getMessage()];
