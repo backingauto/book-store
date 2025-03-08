@@ -22,13 +22,13 @@ try {
     $stmt->bind_param("s", $userEmail);
     $stmt->execute();
     $shoppingCartResult = $stmt->get_result();
-    $shoppingCartStr = $shoppingCartResult->fetch_assoc();
+    $shoppingCartData = $shoppingCartResult->fetch_assoc();
     $stmt->close();
 
     //string to array
     $shoppingCartArray = [];
-    if ($shoppingCartStr && !empty($shoppingCartStr["shopping_cart"])) {
-        $shoppingCartArray = explode(",", $shoppingCartStr["shopping_cart"]);
+    if ($shoppingCartData && !empty($shoppingCartData["shopping_cart"])) {
+        $shoppingCartArray = explode(",", $shoppingCartData["shopping_cart"]);
     }
 
     //add 1 book to shopping_cart

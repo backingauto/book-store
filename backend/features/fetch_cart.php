@@ -14,6 +14,7 @@ try {
 
     $shoppingCart = [];
 
+    //fetch data for each book
     if ($userData && !empty($userData["shopping_cart"])) {
         $shoppingCartArray = explode(",", $userData["shopping_cart"]);
 

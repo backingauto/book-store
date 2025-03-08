@@ -35,12 +35,21 @@ function ShoppingCartPage() {
         fetchShoppingCart();
     }, [inShoppingCart])
 
-    const handleCheckout = () => {
+    const handleCheckout = async () => {
         const confirmCheckout = window.confirm("Are you sure you want to check out?");
         
         if (confirmCheckout) {
-            alert("You have checked out.");
-            navigate("/homepage");
+            const response = await fetch("http://localhost/bookstore/bookstore_backend/features/checkout.php", {
+                method: "POST",
+                credentials: "include"
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("You have checked out.");
+                navigate("/homepage");
+            } else {
+                console.error("Failed to checkout");
+            }
         }
     };
     
