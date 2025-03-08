@@ -39,7 +39,7 @@ function WishListPage() {
             });
             const data = await response.json();
             if (data.success) {
-                setWishList(data.wishlist);
+                setWishlist(data.wishlist);
             } else {
                 console.error("Failed to update wishlist.");
             }

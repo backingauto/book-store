@@ -13,6 +13,7 @@ try {
     $userData = $result->fetch_assoc();
     $stmt->close();
 
+    $wishlist = [];
     if ($userData && !empty($userData["wishlist"])) {
         $wishlistArray = explode(",", $userData["wishlist"]);
 

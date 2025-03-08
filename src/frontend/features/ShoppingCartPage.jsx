@@ -97,7 +97,7 @@ function ShoppingCartPage() {
             
             {shoppingCart.length > 0 && (
                 <div className="checkoutSection">
-                    <p>Total Cost: <strong>${shoppingCart.reduce((total, book) => total + book.price * book.quantity, 0).toFixed(2)}</strong></p>
+                    <p>Total Cost: <strong>${shoppingCart.reduce((total, book) => total + book.price * book.quantity, 0)}</strong></p>
                     <button className="checkoutButton" onClick={handleCheckout}>Proceed to Checkout</button>
                 </div>
             )}
