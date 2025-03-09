@@ -22,7 +22,7 @@ function ShoppingCartPage() {
 
                 const data = await resposne.json();
                 if (data.success) {
-                    setShoppingCart(data.shoppingCart); //from backend
+                    setShoppingCart(data.shoppingCart);
                     setInShoppingCart(data.shoppingCart["quantity"])
                 } else {
                     setMessage("Failed to load shoppingCart");

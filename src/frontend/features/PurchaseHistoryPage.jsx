@@ -34,7 +34,7 @@ function PurchaseHistoryPage() {
             <NavBar />
             <h1>Your Purchase History</h1>
     
-            {message ? <p className="message">{message}</p> : null}
+            <p className="message">{message}</p>
     
             {purchaseHistory.length === 0 ? (
                 <p className="empty">You have no purchase history.</p>

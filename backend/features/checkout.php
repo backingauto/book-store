@@ -5,7 +5,7 @@ try {
 
     $userEmail = validate_auth_token($conn);
 
-    //create a record at the purchase_history table
+    //fetch user's shopping cart
     $historyQuery = "SELECT shopping_cart FROM users WHERE email = ?";
     $stmt = $conn->prepare($historyQuery);
     $stmt->bind_param("s", $userEmail);
@@ -23,6 +23,23 @@ try {
     $shoppingCartArray = explode(",", $shoppingCartStr);
     $item_counts = array_count_values($shoppingCartArray);
 
+    //check if all the books are avialbe
+    foreach ($item_counts as $id => $quantity) {
+        $stockQuery = "SELECT stock FROM books WHERE id = ?";
+        $stmt = $conn->prepare($stockQuery);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($stock);
+        $stmt->fetch();
+        $stmt->close();
+
+        if ($stock < $quantity) {
+            echo json_encode(["success" => false, "error" => "Not enough stock for book ID $id. Available: $stock, Requested: $quantity"]);
+            exit();
+        }
+    }
+
+    //process checkout
     $total_price = 0;
     foreach($item_counts as $id => $quantity) {
         $priceQuery = "SELECT price FROM books WHERE id = ?";
@@ -34,6 +51,13 @@ try {
         $stmt->close();
 
         $total_price += $price * $quantity;
+
+        //decrease stock
+        $updateStockQuery = "UPDATE books SET stock = stock - ? WHERE id = ?";
+        $stmt = $conn->prepare($updateStockQuery);
+        $stmt->bind_param("ii", $quantity, $id);
+        $stmt->execute();
+        $stmt->close();
     }
 
     $current_time = date('Y-m-d H:i:s');

@@ -53,6 +53,7 @@ function BookPage() {
     const [message, setMessage] = useState("");
     const [wishlist, setWishList] = useState(false);
     const [inShoppingCart, setInShoppingCart] = useState(0);   //number of this book in the shopping cart
+    const [stock, setStock] = useState(0);
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -67,6 +68,7 @@ function BookPage() {
                     setBook(data.book);
                     setWishList(data.isWishlist);
                     setInShoppingCart(data.inShoppingCart);
+                    setStock(data.book.stock);
                 } else {
                     console.error("Failed to load book info.");
                     setMessage("Failed to load book info.");
@@ -121,6 +123,7 @@ function BookPage() {
                     <h2 className="bookAuthor">by {book.author}</h2>
                     <p className="bookPrice">${book.price}</p>
                     <p className="bookDescription">{book.description}</p>
+                    <p className="bookStock">Stock Available: {stock}</p>
                 </div>
             </div>
 
@@ -136,7 +139,11 @@ function BookPage() {
                 <p>Shopping Cart</p>
                 <button className="cartButton" onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)} disabled={inShoppingCart === 0}>-</button>
                 <span className="cartQuantity">{inShoppingCart}</span>
-                <button className="cartButton" onClick={() => addToShoppingCart(bookId, setInShoppingCart)}>+</button>
+                <button 
+                className="cartButton" 
+                onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
+                disabled={inShoppingCart >= stock}>
+                +</button>
             </div>
         </div>
     )
