@@ -17,7 +17,7 @@ function WishListPage() {
 
                 const data = await resposne.json();
                 if (data.success) {
-                    setWishlist(data.wishlist); //from backend
+                    setWishlist(data.wishlist);
                 } else {
                     setMessage("Failed to load wishlist");
                 }

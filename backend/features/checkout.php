@@ -52,10 +52,10 @@ try {
 
         $total_price += $price * $quantity;
 
-        //decrease stock
-        $updateStockQuery = "UPDATE books SET stock = stock - ? WHERE id = ?";
+        //update stock and sold
+        $updateStockQuery = "UPDATE books SET stock = stock - ?, sold = sold + ? WHERE id = ?";
         $stmt = $conn->prepare($updateStockQuery);
-        $stmt->bind_param("ii", $quantity, $id);
+        $stmt->bind_param("iii", $quantity, $quantity, $id);
         $stmt->execute();
         $stmt->close();
     }

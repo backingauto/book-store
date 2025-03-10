@@ -72,7 +72,11 @@ function AddBook() {
     
                         <div>
                             <label>Genre</label>
-                            <input type="text" name="genre" placeholder="genre" />
+                            <select name="genre" required>
+                                <option value="" disabled selected>Select a genre</option>
+                                <option value="fiction">fiction</option>
+                                <option value="non-fiction">non-fiction</option>
+                            </select>
                         </div>
     
                         <div>
