@@ -47,6 +47,9 @@ function NavBar() {
                     <Link to="/PurchaseHistoryPage">
                         <button className="navButton">Purchase History</button>
                     </Link>
+                    <Link to="/reviewPage">
+                        <button className="navButton">Review History</button>
+                    </Link>
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import NavBar from '../NavBar';
 import "./BookPage.css";
 
@@ -54,6 +54,12 @@ function BookPage() {
     const [wishlist, setWishList] = useState(false);
     const [inShoppingCart, setInShoppingCart] = useState(0);   //number of this book in the shopping cart
     const [stock, setStock] = useState(0);
+    
+    const [rating, setRating] = useState(0);
+    const [reviews, setReviews] = useState([]);
+    //user review section
+    const [userRating, setUserRating] = useState(0);
+    const [userReview, setUserReview] = useState("");
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -69,6 +75,8 @@ function BookPage() {
                     setWishList(data.isWishlist);
                     setInShoppingCart(data.inShoppingCart);
                     setStock(data.book.stock);
+                    setRating(data.book.rating);
+                    setReviews(data.book.reviews || []);
                 } else {
                     console.error("Failed to load book info.");
                     setMessage("Failed to load book info.");
@@ -112,6 +120,34 @@ function BookPage() {
         }
     }
 
+    const submitReview = async () => {
+        if (userRating === 0 || userReview.trim() === "") {
+            setMessage("Please provide a rating and a review.");
+            return;
+        }
+        try {
+
+            const response = await fetch("http://localhost/bookstore/bookstore_backend/book/submit_review.php", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookId, rating: userRating, review: userReview })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                setReviews([...reviews, { rating: userRating, review: userReview }]);
+                setUserRating(0);
+                setUserReview("");
+            } else {
+                setMessage("Failed to submit review.");
+            }
+        } catch (error) {
+            setMessage("Error submitting review:", error);
+        }
+
+    }
+
     return (
         <div className='bookPage'>
             <NavBar />
@@ -123,10 +159,13 @@ function BookPage() {
                     <h2 className="bookAuthor">by {book.author}</h2>
                     <p className="bookPrice">${book.price}</p>
                     <p className="bookDescription">{book.description}</p>
-                    <p className="bookStock">Stock Available: {stock}</p>
+                    <p className="bookStock">Stock Available: {book.stock}</p>
+                    <p className="bookRating">
+                        Rating: {book.rating > 0 ? book.rating : "N/A"}
+                    </p>
                 </div>
             </div>
-
+            <hr />
             <br />
             <button className="wishlist_button" onClick={toggleWishlist}>
                 {wishlist ? <FaHeart/> : <FaRegHeart/>}
@@ -144,6 +183,45 @@ function BookPage() {
                 onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
                 disabled={inShoppingCart >= stock}>
                 +</button>
+            </div>
+
+            <br />
+            <hr />
+
+            <div className='reviewSection'>
+                <h2>Write a Review</h2>
+                <div className="rating">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <FaStar 
+                            key={star} 
+                            className={userRating >= star ? "star selected" : "star"}
+                            onClick={() => setUserRating(star)}
+                            style={{ cursor: "pointer", color: userRating >= star ? "#FFD700" : "#C0C0C0" }}
+                        />
+                    ))}
+                </div>
+                <input 
+                    type='text'
+                    placeholder="Write your review..." 
+                    value={userReview} 
+                    onChange={(e) => setUserReview(e.target.value)}
+                />
+                <button onClick={submitReview}>Submit Review</button>
+            </div>
+            <br />
+            <hr />
+            <div className="reviews">
+                <h2>Reviews</h2>
+                {reviews.length === 0 ? (
+                    <p>No reviews yet.</p>
+                ) : (
+                    reviews.map((review, index) => (
+                        <div key={index} className="review">
+                            <p className="reviewRating">{"⭐".repeat(review.rating)}</p>
+                            <p className="reviewReview">{review.review}</p>
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     )

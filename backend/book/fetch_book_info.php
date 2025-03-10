@@ -10,7 +10,7 @@ try {
     $bookID = $_GET["id"];
     $userEmail = validate_auth_token($conn);
 
-    $query = "SELECT id, title, author, price, description, image_url, stock FROM books WHERE id = ?";
+    $query = "SELECT id, title, author, price, description, image_url, stock, rating FROM books WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $bookID);
     $stmt->execute();
