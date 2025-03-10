@@ -4,6 +4,47 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import NavBar from '../NavBar';
 import "./BookPage.css";
 
+
+export const addToShoppingCart = async (bookId, setInShoppingCart) => {
+    try {
+        const response = await fetch("http://localhost/bookstore/bookstore_backend/book/update_cart.php", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ bookId, action: "add" })
+        });
+        const data = await response.json();
+        if (data.success) {
+            setInShoppingCart(prevCount => prevCount + 1);
+        } else {
+            console.error("Failed to update ShoppingCart.");
+        }
+        
+    } catch (error) {
+        console.error("Error updating ShoppingCart:", error);
+    }
+}
+
+export const removeFromShoppingCart = async (bookId, setInShoppingCart) => {
+    try {
+        const response = await fetch("http://localhost/bookstore/bookstore_backend/book/update_cart.php", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ bookId, action: "remove" })
+        });
+        const data = await response.json();
+        if (data.success) {
+            setInShoppingCart(prevCount => prevCount - 1);
+        } else {
+            console.error("Failed to update ShoppingCart.");
+        }
+        
+    } catch (error) {
+        console.error("Error updating ShoppingCart:", error);
+    }
+}
+
 function BookPage() {
 
     const { bookId } = useParams();
@@ -11,6 +52,8 @@ function BookPage() {
     const [book, setBook] = useState(null);
     const [message, setMessage] = useState("");
     const [wishlist, setWishList] = useState(false);
+    const [inShoppingCart, setInShoppingCart] = useState(0);   //number of this book in the shopping cart
+    const [stock, setStock] = useState(0);
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -24,6 +67,8 @@ function BookPage() {
                 if (data.success) {
                     setBook(data.book);
                     setWishList(data.isWishlist);
+                    setInShoppingCart(data.inShoppingCart);
+                    setStock(data.book.stock);
                 } else {
                     console.error("Failed to load book info.");
                     setMessage("Failed to load book info.");
@@ -66,7 +111,6 @@ function BookPage() {
             console.error("Error updating wishlist:", error);
         }
     }
-    
 
     return (
         <div className='bookPage'>
@@ -79,6 +123,7 @@ function BookPage() {
                     <h2 className="bookAuthor">by {book.author}</h2>
                     <p className="bookPrice">${book.price}</p>
                     <p className="bookDescription">{book.description}</p>
+                    <p className="bookStock">Stock Available: {stock}</p>
                 </div>
             </div>
 
@@ -87,6 +132,19 @@ function BookPage() {
                 {wishlist ? <FaHeart/> : <FaRegHeart/>}
                 {wishlist ? " Remove from wishlist" : " Add to wishlist"}
             </button>
+            <br />
+            <br />
+
+            <div className='shoppingCartControls'>
+                <p>Shopping Cart</p>
+                <button className="cartButton" onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)} disabled={inShoppingCart === 0}>-</button>
+                <span className="cartQuantity">{inShoppingCart}</span>
+                <button 
+                className="cartButton" 
+                onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
+                disabled={inShoppingCart >= stock}>
+                +</button>
+            </div>
         </div>
     )
 

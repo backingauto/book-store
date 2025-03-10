@@ -1,7 +1,6 @@
 import './NavBar.css';
 import logo from '../assets/bookstore_icon.webp';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";   
 
 function NavBar() {
 
@@ -39,12 +38,15 @@ function NavBar() {
                     <Link to="/dashboard">
                         <button className="navButton">Dashboard</button>
                     </Link>
-                    
                     <Link to="/wishListPage">
                         <button className="navButton">Wishlist</button>
                     </Link>
-                    <button className="navButton">Shopping Cart</button>
-                    <button className="navButton">Purchase History</button>
+                    <Link to="/ShoppingCartPage">
+                        <button className="navButton">Shopping Cart</button>
+                    </Link>
+                    <Link to="/PurchaseHistoryPage">
+                        <button className="navButton">Purchase History</button>
+                    </Link>
                 </div>
             </div>
 

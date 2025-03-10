@@ -8,6 +8,8 @@ import Dashboard from './frontend/features/Dashboard';
 import AddBook from './frontend/features/AddBook';
 import BookPage from './frontend/book/BookPage';
 import WishListPage from './frontend/features/WishListPage';
+import ShoppingCartPage from './frontend/features/ShoppingCartPage';
+import PurchaseHistoryPage from './frontend/features/PurchaseHistoryPage';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/addbook" element={<AddBook />} />
           <Route path="/book/:bookId" element={<BookPage />} />
           <Route path="/wishListPage" element={<WishListPage />} />
+          <Route path="/ShoppingCartPage" element={<ShoppingCartPage />} />
+          <Route path="/PurchaseHistoryPage" element={<PurchaseHistoryPage />} />
         </Routes>
     </HashRouter>
   )

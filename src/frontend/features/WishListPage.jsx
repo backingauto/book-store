@@ -17,7 +17,7 @@ function WishListPage() {
 
                 const data = await resposne.json();
                 if (data.success) {
-                    setWishlist(data.wishlist); //from backend
+                    setWishlist(data.wishlist);
                 } else {
                     setMessage("Failed to load wishlist");
                 }
@@ -39,7 +39,7 @@ function WishListPage() {
             });
             const data = await response.json();
             if (data.success) {
-                setWishList(data.wishlist);
+                setWishlist(data.wishlist);
             } else {
                 console.error("Failed to update wishlist.");
             }
