@@ -55,8 +55,21 @@ try {
     }
 
     //fetch the reviews
+    $fetchReviewsQuery = "SELECT user_email, rating, review, time FROM book_reviews WHERE book_id = ?";
+    $stmt = $conn->prepare($fetchReviewsQuery);
+    $stmt->bind_param("i", $bookID);
+    $stmt->execute();
+    $reviewsResult = $stmt->get_result();
+    $reviews = $reviewsResult->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
 
-    echo json_encode(["success" => true, "book" => $book, "isWishlist" => $isWishlist, "inShoppingCart" => $inShoppingCart]);
+    echo json_encode([
+        "success" => true, 
+        "book" => $book,  //id, title, author, price, description, image_url, stock, rating
+        "isWishlist" => $isWishlist, 
+        "inShoppingCart" => $inShoppingCart, 
+        "reviews" => $reviews
+    ]);
 
 } catch (Exception $e) {
     $response = ["success" => false, "error" => $e->getMessage()];
