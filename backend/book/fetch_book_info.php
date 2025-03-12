@@ -54,6 +54,8 @@ try {
         $inShoppingCart = isset($counts[$bookID]) ? $counts[$bookID] : 0;
     }
 
+    //fetch the reviews
+
     echo json_encode(["success" => true, "book" => $book, "isWishlist" => $isWishlist, "inShoppingCart" => $inShoppingCart]);
 
 } catch (Exception $e) {

@@ -1,8 +1,4 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Origin: *");
-
 include '../security.php';
 
 $data = json_decode(file_get_contents("php://input"), true);

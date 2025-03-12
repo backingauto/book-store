@@ -120,9 +120,10 @@ function BookPage() {
         }
     }
 
-    const submitReview = async () => {
+    const submitReview = async (event) => {
+        event.preventDefault();
         if (userRating === 0 || userReview.trim() === "") {
-            setMessage("Please provide a rating and a review.");
+            alert("Please provide a rating and a review.");
             return;
         }
         try {
@@ -139,13 +140,13 @@ function BookPage() {
                 setReviews([...reviews, { rating: userRating, review: userReview }]);
                 setUserRating(0);
                 setUserReview("");
+                alert("Submit review successfully.");
             } else {
-                setMessage("Failed to submit review.");
+                alert("Failed to submit review.");
             }
         } catch (error) {
-            setMessage("Error submitting review:", error);
+            alert("Error submitting review:", error);
         }
-
     }
 
     return (
@@ -187,27 +188,31 @@ function BookPage() {
 
             <br />
             <hr />
+            <form onSubmit={submitReview}>
+                <div className='reviewSection'>
+                    <h2>Write a Review</h2>
+                    {message && <p className="message">{message}</p>}
 
-            <div className='reviewSection'>
-                <h2>Write a Review</h2>
-                <div className="rating">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                        <FaStar 
-                            key={star} 
-                            className={userRating >= star ? "star selected" : "star"}
-                            onClick={() => setUserRating(star)}
-                            style={{ cursor: "pointer", color: userRating >= star ? "#FFD700" : "#C0C0C0" }}
-                        />
-                    ))}
+                    <div className="rating">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <FaStar 
+                                key={star} 
+                                className={userRating >= star ? "star selected" : "star"}
+                                onClick={() => setUserRating(star)}
+                                style={{ cursor: "pointer", color: userRating >= star ? "#FFD700" : "#C0C0C0" }}
+                            />
+                        ))}
+                    </div>
+                    <input 
+                        type='text'
+                        placeholder="Write your review..." 
+                        value={userReview} 
+                        onChange={(e) => setUserReview(e.target.value)}
+                    />
+                    <button onClick={submitReview}>Submit Review</button>
                 </div>
-                <input 
-                    type='text'
-                    placeholder="Write your review..." 
-                    value={userReview} 
-                    onChange={(e) => setUserReview(e.target.value)}
-                />
-                <button onClick={submitReview}>Submit Review</button>
-            </div>
+            </form>
+
             <br />
             <hr />
             <div className="reviews">
