@@ -41,11 +41,14 @@ function NavBar() {
                     <Link to="/wishListPage">
                         <button className="navButton">Wishlist</button>
                     </Link>
-                    <Link to="/ShoppingCartPage">
+                    <Link to="/shoppingCartPage">
                         <button className="navButton">Shopping Cart</button>
                     </Link>
-                    <Link to="/PurchaseHistoryPage">
+                    <Link to="/purchaseHistoryPage">
                         <button className="navButton">Purchase History</button>
+                    </Link>
+                    <Link to="/reviewPage">
+                        <button className="navButton">Review History</button>
                     </Link>
                 </div>
             </div>

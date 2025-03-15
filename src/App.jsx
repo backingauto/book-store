@@ -10,6 +10,7 @@ import BookPage from './frontend/book/BookPage';
 import WishListPage from './frontend/features/WishListPage';
 import ShoppingCartPage from './frontend/features/ShoppingCartPage';
 import PurchaseHistoryPage from './frontend/features/PurchaseHistoryPage';
+import ReviewPage from './frontend/features/ReviewPage';
 
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
           <Route path="/addbook" element={<AddBook />} />
           <Route path="/book/:bookId" element={<BookPage />} />
           <Route path="/wishListPage" element={<WishListPage />} />
-          <Route path="/ShoppingCartPage" element={<ShoppingCartPage />} />
-          <Route path="/PurchaseHistoryPage" element={<PurchaseHistoryPage />} />
+          <Route path="/shoppingCartPage" element={<ShoppingCartPage />} />
+          <Route path="/purchaseHistoryPage" element={<PurchaseHistoryPage />} />
+          <Route path="/reviewPage" element={<ReviewPage />} />
         </Routes>
     </HashRouter>
   )
