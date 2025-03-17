@@ -5,7 +5,6 @@ import "./HomePage.css";
 
 function HomePage() {
 
-    const navigate = useNavigate();
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
