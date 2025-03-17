@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import './LandingPage.css';
-import Footer from '../Footer';
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
+
 
 function LandingPage() {
 
@@ -51,13 +53,14 @@ function LandingPage() {
 
     return (
         <div className="landingPage">
-            <header className="header">
+            <Header />
+            <div className="title">
                 <h1>Welcome to BookStore</h1>
                 <p>Your one-stop shop for books of all genres. Find your next great read today!</p>
                 <div className="buttons">
-
+                    <Link to="/login">Click here to login!</Link>
                 </div>
-            </header>
+            </div>
 
             <div className="banner">
                 <img src="/banner.webp" alt="Bookstore Banner" />
@@ -98,10 +101,9 @@ function LandingPage() {
                     )}
                 </div>
             </section>
-
             <Footer />
+
         </div>
-        
     );
 }
 

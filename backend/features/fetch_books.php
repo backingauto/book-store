@@ -8,9 +8,9 @@ try {
 
     if ($location === "landingPage") {
         if ($purpose === "bestSeller") {
-            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY sold DESC LIMIT 7";
+            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY sold DESC LIMIT 6";
         } elseif ($purpose === "newBooks") {
-            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY time DESC LIMIT 7";
+            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY time DESC LIMIT 6";
         }
 
     } elseif ($location === "homepage") {
