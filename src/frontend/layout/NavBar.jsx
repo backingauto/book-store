@@ -1,5 +1,5 @@
 import './NavBar.css';
-import logo from '../assets/bookstore_icon.webp';
+import logo from '../../assets/bookstore_icon.webp';
 import { Link, useNavigate } from 'react-router-dom';
 
 function NavBar() {

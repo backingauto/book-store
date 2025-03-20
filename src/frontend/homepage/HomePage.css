@@ -17,7 +17,7 @@ html, body {
 }
 
 /* Container for all books */
-.allBooksContainer {
+.homepage .allBooksContainer {
     display: flex;
     flex-wrap: wrap; /* ✅ Allows books to form multiple rows */
     justify-content: flex-start; /* ✅ Ensures new rows start from the left */
@@ -26,22 +26,22 @@ html, body {
 }
 
 /* Individual book card */
-.bookContainer {
+.homepage .bookContainer {
     width: calc(20% - 20px); /* ✅ Ensures 5 books per row */
     margin-bottom: 40px; /* ✅ More vertical spacing between rows */
     text-align: center;
 }
 
 /* Book cover image */
-.bookCover {
-    width: 160px;
-    height: 230px;
+.homepage .bookCover {
+    width: 15vw;
+    height: 20vh;
     border-radius: 15px;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2); /* ✅ Stronger shadow effect */
 }
 
 /* Book text container */
-.bookText {
+.homepage .bookText {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,21 +50,21 @@ html, body {
 }
 
 /* Book title */
-.bookTitle {
+.homepage .bookTitle {
     font-size: 18px;
     font-weight: bold;
     margin: 5px 0; /* ✅ Less space between elements */
 }
 
 /* Author name */
-.bookAuthor {
+.homepage .bookAuthor {
     font-size: 15px;
     font-weight: normal;
     margin: 3px 0; /* ✅ Keeps text closer */
 }
 
 /* Book price */
-.bookPrice {
+.homepage .bookPrice {
     font-size: 15px;
     font-weight: normal;
     margin: 3px 0; /* ✅ Prevents large gaps */

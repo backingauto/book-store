@@ -1,5 +1,9 @@
 import './App.css'
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './frontend/layout/Header';
+import Footer from './frontend/layout/Footer';
+import NavBar from './frontend/layout/NavBar';
+
 import RegisterPage from './frontend/auth/RegisterPage';
 import LoginPage from './frontend/auth/LoginPage';
 import LandingPage from './frontend/homepage/LandingPage'
@@ -16,21 +20,24 @@ import ReviewPage from './frontend/features/ReviewPage';
 function App() {
 
   return (
-    <HashRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/addbook" element={<AddBook />} />
-          <Route path="/book/:bookId" element={<BookPage />} />
-          <Route path="/wishListPage" element={<WishListPage />} />
-          <Route path="/shoppingCartPage" element={<ShoppingCartPage />} />
-          <Route path="/purchaseHistoryPage" element={<PurchaseHistoryPage />} />
-          <Route path="/reviewPage" element={<ReviewPage />} />
-        </Routes>
-    </HashRouter>
+    <BrowserRouter>
+
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/homepage" element={<HomePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/addbook" element={<AddBook />} />
+        <Route path="/book/:bookId" element={<BookPage />} />
+        <Route path="/wishListPage" element={<WishListPage />} />
+        <Route path="/shoppingCartPage" element={<ShoppingCartPage />} />
+        <Route path="/purchaseHistoryPage" element={<PurchaseHistoryPage />} />
+        <Route path="/reviewPage" element={<ReviewPage />} />
+      </Routes>
+
+
+    </BrowserRouter>
   )
 }
 

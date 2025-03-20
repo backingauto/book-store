@@ -1,7 +1,6 @@
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
-import NavBar from '../NavBar';
 import "./BookPage.css";
 
 

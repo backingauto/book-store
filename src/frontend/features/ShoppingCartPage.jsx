@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import NavBar from '../NavBar';
 import { addToShoppingCart, removeFromShoppingCart } from "../book/BookPage";
 
 

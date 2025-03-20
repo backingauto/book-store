@@ -1,11 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";   
-import NavBar from '../NavBar';
 import "./HomePage.css";
 
 function HomePage() {
 
-    const navigate = useNavigate();
     const [books, setBooks] = useState([]);
 
     useEffect(() => {

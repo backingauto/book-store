@@ -1,6 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import NavBar from '../NavBar';
 
 function ReviewPage() {
     const [reviews, setReviews] = useState([]);
