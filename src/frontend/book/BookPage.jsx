@@ -1,7 +1,8 @@
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import "./BookPage.css";
+import NavBar from "../layout/NavBar.jsx";  //will be removed
 
 
 export const addToShoppingCart = async (bookId, setInShoppingCart) => {
@@ -47,6 +48,8 @@ export const removeFromShoppingCart = async (bookId, setInShoppingCart) => {
 function BookPage() {
 
     const { bookId } = useParams();
+    
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [book, setBook] = useState(null);
     const [message, setMessage] = useState("");
@@ -61,6 +64,10 @@ function BookPage() {
     const [userReview, setUserReview] = useState("");
 
     useEffect(() => {
+        //check for auth token to see user is logged in
+        const authToken = document.cookie.includes("auth_token");
+        setIsLoggedIn(authToken); 
+
         const fetchBookInfo = async () => {
             try {
                 const response = await fetch(`http://localhost/bookstore/bookstore_backend/book/fetch_book_info.php?id=${bookId}`, {
@@ -166,47 +173,81 @@ function BookPage() {
             </div>
             <hr />
             <br />
-            <button className="wishlist_button" onClick={toggleWishlist}>
-                {wishlist ? <FaHeart/> : <FaRegHeart/>}
-                {wishlist ? " Remove from wishlist" : " Add to wishlist"}
-            </button>
+
+            {isLoggedIn ? (
+                <button className="wishlist_button" onClick={toggleWishlist}>
+                    {wishlist ? <FaHeart/> : <FaRegHeart/>}
+                    {wishlist ? " Remove from wishlist" : " Add to wishlist"}
+                </button>
+            ) : (
+                <Link to={`/login?redirect=/book/${bookId}`}>
+                    <button className="wishlist_button">Login to add to wishlist</button>
+                </Link>
+            )}
+
+
             <br />
             <br />
 
             <div className='shoppingCartControls'>
                 <p>Shopping Cart</p>
-                <button className="cartButton" onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)} disabled={inShoppingCart === 0}>-</button>
-                <span className="cartQuantity">{inShoppingCart}</span>
-                <button 
-                className="cartButton" 
-                onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
-                disabled={inShoppingCart >= stock}>
-                +</button>
+
+                {isLoggedIn ? (
+                    <>
+                        <button className="cartButton" onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)} disabled={inShoppingCart === 0}>-</button>
+                        <span className="cartQuantity">{inShoppingCart}</span>
+
+                        <button 
+                        className="cartButton" 
+                        onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
+                        disabled={inShoppingCart >= stock}>
+                        +
+                        </button>
+                    </>
+                ) : (
+                    <Link to={`/login?redirect=/book/${bookId}`}>
+                        <button className="cartButton">Login to Purchase</button>
+                    </Link>
+                )}
             </div>
 
             <br />
             <hr />
             <div className='reviewSection'>
+                
                 <h2>Write a Review</h2>
-                {message && <p className="message">{message}</p>}
 
-                <div className="rating">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                        <FaStar 
-                            key={star} 
-                            className={userRating >= star ? "star selected" : "star"}
-                            onClick={() => setUserRating(star)}
-                            style={{ cursor: "pointer", color: userRating >= star ? "#FFD700" : "#C0C0C0" }}
+                {isLoggedIn ? (
+                    <>
+                        {message && <p className="message">{message}</p>}
+
+                        <div className="rating">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <FaStar 
+                                    key={star} 
+                                    className={userRating >= star ? "star selected" : "star"}
+                                    onClick={() => setUserRating(star)}
+                                    style={{ cursor: "pointer", color: userRating >= star ? "#FFD700" : "#C0C0C0" }}
+                                />
+                            ))}
+                        </div>
+                        <input 
+                            type='text'
+                            placeholder="Write your review..." 
+                            value={userReview} 
+                            onChange={(e) => setUserReview(e.target.value)}
                         />
-                    ))}
-                </div>
-                <input 
-                    type='text'
-                    placeholder="Write your review..." 
-                    value={userReview} 
-                    onChange={(e) => setUserReview(e.target.value)}
-                />
-                <button onClick={submitReview}>Submit Review</button>
+                        <button onClick={submitReview}>Submit Review</button>
+                    </>
+                ) : (
+                    <p className="loginPrompt">
+                        <   Link to={`/login?redirect=/book/${bookId}`} className="loginText">
+                            Login to write a review
+                        </Link>
+                    </p>
+                )}
+
+
             </div>
 
             <br />

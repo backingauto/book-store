@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";   
 import "./HomePage.css";
+import NavBar from "../layout/NavBar.jsx";
 
 function HomePage() {
 
@@ -9,7 +10,7 @@ function HomePage() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php", {
+                const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=homepage", {
                     method: "GET",
                     credentials: "include"
                 });

@@ -7,23 +7,36 @@ import Header from '../layout/Header';
 
 function LandingPage() {
 
-        const [bestSeller, setBestSeller] = useState([]);
+        const [bestSeller, setBestSeller] = useState([[], [], []]); //3 pages
+        const [currentBSPage, setCurrentBSPage] = useState(0);
         const [newBooks, setNewBooks] = useState([]);
+        const [isLoggedIn, setIsLoggedIn] = useState(false);
     
         useEffect(() => {
+            //check for auth token to see user is logged in
+            const authToken = document.cookie.includes("auth_token");
+            setIsLoggedIn(authToken); 
+
+            //fetch books for bestseller
             const fetchBestSeller = async () => {
                 try {
-                    const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller", {
-                        method: "GET",
-                        credentials: "include"
-                    });
-    
-                    const data = await response.json();
-                    if (data.success) {
-                        setBestSeller(data.books);
-                    } else {
-                        console.error("Failed to fetch books.");
+                    let pages = [[], [], []];
+
+                    for (let i=0; i<3; i++) {
+                        const response = await fetch(`http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller&page=${i+1}`, {
+                            method: "GET",
+                            credentials: "include"
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            pages[i] = data.books;
+                        } else {
+                            console.error("Failed to fetch books.");
+                        }
                     }
+                    setBestSeller(pages);
+
                 } catch (error) {
                     console.error("Error fetching books:", error);
                 }
@@ -51,6 +64,10 @@ function LandingPage() {
             fetchNewBooks();
         }, [])
 
+        // navigation between pages
+        const goToPrevBSPage = () => setCurrentBSPage((prev) => (prev === 0 ? 2 : prev - 1));
+        const goToNextBSPage = () => setCurrentBSPage((prev) => (prev === 2 ? 0 : prev + 1));
+
     return (
         <div className="landingPage">
             <Header />
@@ -68,11 +85,13 @@ function LandingPage() {
 
             <section className="featuredBooks">
                 <h2>Best Sellers</h2>
+                <button className="arrow left" onClick={goToPrevBSPage}>❮</button>
+
                 <div className="bookContainer">
-                    {bestSeller.length > 0 ? (
-                        bestSeller.map((book) => (
+                    {bestSeller[currentBSPage].length > 0 ? (
+                        bestSeller[currentBSPage].map((book) => (
                             <div key={book.id} className="book">
-                                <Link to={"/book/" + book.id}>
+                                <Link to={`/book/${book.id}`}>
                                     <img src={book.image_url} className='bookCover'></img>
                                 </Link>
                                 <p className="bookTitle">{book.title}</p>
@@ -84,6 +103,13 @@ function LandingPage() {
                         <p>Loading best sellers...</p>
                     )}
                 </div>
+
+                <button className="arrow right" onClick={goToNextBSPage}>❯</button>
+                <div className="dots">
+                    {[0, 1, 2].map((index) => (
+                        <span key={index} className={`dot ${index === currentBSPage ? "active" : ""}`} onClick={() => setCurrentBSPage(index)}></span>
+                    ))}
+                </div>
             </section>
 
             <section className="featuredBooks">
@@ -92,7 +118,9 @@ function LandingPage() {
                     {newBooks.length > 0 ? (
                         newBooks.map((book) => (
                             <div key={book.id} className="book">
-                                <img className="bookCover" src={book.image_url} alt={book.title} />
+                                <Link to={`/book/${book.id}`}>
+                                    <img className="bookCover" src={book.image_url} alt={book.title} />
+                                </Link>   
                                 <p className="bookTitle">{book.title}</p>
                                 <p className="bookAuthor">{book.author}</p>
                                 <p className="bookPrice">{book.price}</p>

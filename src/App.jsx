@@ -21,7 +21,6 @@ function App() {
 
   return (
     <BrowserRouter>
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<RegisterPage />} />

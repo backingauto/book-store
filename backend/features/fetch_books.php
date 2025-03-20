@@ -4,7 +4,7 @@ include '../security.php';
 try {
 
     $location = $_GET["location"] ?? "homepage";
-    $purpose = $_GET["purpose"];
+    $purpose = $_GET["purpose"] ?? "all";
 
     if ($location === "landingPage") {
         if ($purpose === "bestSeller") {

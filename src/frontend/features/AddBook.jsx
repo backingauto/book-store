@@ -2,6 +2,8 @@ import './Dashboard.css';
 import { useState } from "react";  
 import DOMPurify from "dompurify";
 import { useNavigate } from 'react-router-dom';
+import NavBar from "../layout/NavBar.jsx";  //will be removed
+
 
 function AddBook() {
 
