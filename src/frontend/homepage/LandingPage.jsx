@@ -72,7 +72,9 @@ function LandingPage() {
                     {bestSeller.length > 0 ? (
                         bestSeller.map((book) => (
                             <div key={book.id} className="book">
-                                <img className="bookCover" src={book.image_url} alt={book.title} />
+                                <Link to={"/book/" + book.id}>
+                                    <img src={book.image_url} className='bookCover'></img>
+                                </Link>
                                 <p className="bookTitle">{book.title}</p>
                                 <p className="bookAuthor">{book.author}</p>
                                 <p className="bookPrice">{book.price}</p>
