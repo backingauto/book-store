@@ -87,7 +87,9 @@ function LandingPage() {
                 <h1>Welcome to BookStore</h1>
                 <p>Your one-stop shop for books of all genres. Find your next great read today!</p>
                 <div className="buttons">
-                    <Link to="/login">Click here to login!</Link>
+                    <Link to="/login" style={{ color: "red", fontWeight: "bold" }}>
+                        Click here to login!
+                    </Link>
                 </div>
             </div>
 
@@ -148,6 +150,18 @@ function LandingPage() {
                     <button className="arrow right" onClick={() => setCurrentNewPage(prev => (prev === 2 ? 0 : prev + 1))}>❯</button>
                 </div>
             </section>
+
+            <div className="viewAllBooks">
+                <button onClick={() => {
+                    if (isLoggedIn) {
+                        window.location.href = "/homepage";
+                    } else {
+                        window.location.href = "/login";
+                    }
+                }}>
+                    Login to view all books
+                </button>
+            </div>
 
 
             <Footer />

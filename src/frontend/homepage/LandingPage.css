@@ -110,3 +110,10 @@ body {
     margin-bottom: 20px;
 }
 
+.viewAllBooks {
+    margin-top: 80px;
+}
+
+.viewAllBooks button:hover {
+    background-color: gray;
+}
