@@ -24,7 +24,7 @@ try {
     $cover = $_FILES["cover"];
     $cover_name = sanitize_input($cover["name"]);
     
-    $allowed_extension = ["jpg", "jpeg", "png"];
+    $allowed_extension = ["jpg", "jpeg", "png", "webp"];
     $cover_extension = pathinfo($cover_name, PATHINFO_EXTENSION);
     if (!in_array($cover_extension, $allowed_extension)) {
         echo json_encode(["success" => false, "error" => "invalid file type"]);

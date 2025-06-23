@@ -7,10 +7,15 @@ try {
     $purpose = $_GET["purpose"] ?? "all";
 
     if ($location === "landingPage") {
+        $page = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+        $limit = 6;
+        $offset = ($page - 1) * $limit;
+
         if ($purpose === "bestSeller") {
-            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY sold DESC LIMIT 6";
+
+            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY sold DESC LIMIT $limit OFFSET $offset";
         } elseif ($purpose === "newBooks") {
-            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY time DESC LIMIT 6";
+            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY time DESC LIMIT $limit OFFSET $offset";
         }
 
     } elseif ($location === "homepage") {

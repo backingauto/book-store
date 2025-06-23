@@ -2,6 +2,8 @@
 
 include '../security.php';
 
+session_start();
+
 $data = json_decode(file_get_contents("php://input"), true);
 if ($data == null) {
     echo json_encode(["success" => false, "message" => "missing input data"]);
@@ -56,9 +58,18 @@ setcookie("auth_token", $auth_token, [
     "samesite" => "Lax"
 ]);
 
+//generate CSRF token
+if (!isset($_SESSION["CSRF_token"])) {
+    $_SESSION['CSRF_token'] = bin2hex(random_bytes(16));
+}
+
 
 //success
-echo json_encode(["success" => true, "message" => "Login successful", "user" => ["id" => $id, "username" => $username, "email" => $email, "auth_token" => $auth_token]]);
+echo json_encode([
+    "success" => true, 
+    "message" => "Login successful", 
+    "user" => ["id" => $id, "username" => $username, "email" => $email, "auth_token" => $auth_token, "CSRF_token" => $_SESSION["CSRF_token"]]
+]);
 
 $stmt->close();
 $conn->close();

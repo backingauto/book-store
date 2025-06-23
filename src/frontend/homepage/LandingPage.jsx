@@ -105,11 +105,6 @@ function LandingPage() {
                 </div>
 
                 <button className="arrow right" onClick={goToNextBSPage}>❯</button>
-                <div className="dots">
-                    {[0, 1, 2].map((index) => (
-                        <span key={index} className={`dot ${index === currentBSPage ? "active" : ""}`} onClick={() => setCurrentBSPage(index)}></span>
-                    ))}
-                </div>
             </section>
 
             <section className="featuredBooks">

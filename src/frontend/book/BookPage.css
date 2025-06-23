@@ -1,3 +1,8 @@
 .bookPage {
     margin-top: 12vh;
 }
+
+.bookCover {
+    width: 25%;
+    height: 35%;
+}

@@ -165,7 +165,7 @@ function BookPage() {
                     <h2 className="bookAuthor">by {book.author}</h2>
                     <p className="bookPrice">${book.price}</p>
                     <p className="bookDescription">{book.description}</p>
-                    <p className="bookStock">Stock Available: {book.stock}</p>
+                    <p className="bookStock">Book Available: {book.stock}</p>
                     <p className="bookRating">
                         Rating: {book.rating > 0 ? book.rating : "N/A"}
                     </p>
