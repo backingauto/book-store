@@ -1,19 +1,90 @@
+.loginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background-color: #f4f4f4;
+    font-family: Helvetica, sans-serif;
+    flex-direction: column;
+}
+
+.loginContainer {
+    background: white;
+    padding: 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    min-height: 600px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+
+
+.loginContainer h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #333;
+}
+
 label {
     display: block;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    text-align: center;
 }
 
 input {
     width: 100%;
     max-width: 300px;
     padding: 12px;
-    margin-bottom: 25px;
-    border-radius: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     font-size: 16px;
+    text-align: left;
+
+}
+
+button {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 30px;
 }
 
 button:hover {
-    background-color: #333;
+    background-color: #005fa3;
+}
+
+.message {
+    margin-top: 15px;
+    color: red;
+    font-weight: bold;
+}
+
+.authLinks {
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.authLinks a {
+    color: #0077cc;
+    text-decoration: none;
+}
+
+.authLinks a:hover {
+    text-decoration: underline;
 }

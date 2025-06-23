@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";   
 import DOMPurify from "dompurify";
 import './Auth.css';
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
 
 function LoginPage() {
 
@@ -50,29 +52,48 @@ function LoginPage() {
 
     return (
         <div className='loginPage'>
+            <Header />
+            
             <div className='loginContainer'>
-                <p>login page</p>
-                <br/>
-                <br/>
+                <h2>Sign In to Your Account</h2>
 
                 <form onSubmit={handleForm}>
-                <label>Username/Email:</label>
-                    <input type="text" name="usernameOrEmail" value={usernameOrEmail} onChange={handleUsernameOrEmailChange} placeholder='enter your username or email' required />
+                    <label htmlFor="usernameOrEmail">Username or Email</label>
+                    <input
+                        type="text"
+                        id="usernameOrEmail"
+                        name="usernameOrEmail"
+                        value={usernameOrEmail}
+                        onChange={handleUsernameOrEmailChange}
+                        placeholder="Enter your username or email"
+                        required
+                    />
 
-                    <label>Password:</label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} placeholder='enter your password' required />
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        placeholder="Enter your password"
+                        required
+                    />
 
-                    <br/>
                     <button type="submit">Login</button>
-                    <br/>
-                    <br/>
+
+                    {message && <p className="message">{message}</p>}
                 </form>
+
+                <div className="authLinks">
+                    <p>Don't have an account? <Link to="/register">Sign up</Link></p>
+                    <Link to="/">← Back to Landing Page</Link>
+                </div>
             </div>
-            {message && <p className="message">{message}<br/></p>}
-        
-            <p>no account? <br/><Link to="/register">Click here to sign up!</Link></p>
-            <Link to="/">Go back to home</Link>
+
+            <Footer />
         </div>
+
     )
 }
 
