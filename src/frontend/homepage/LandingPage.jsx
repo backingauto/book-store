@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
 
 function LandingPage() {
+
+        const navigate = useNavigate();
 
         const [bestSeller, setBestSeller] = useState([[], [], []]); //3 pages
         const [currentBSPage, setCurrentBSPage] = useState(0);
@@ -107,9 +110,12 @@ function LandingPage() {
                         {bestSeller[currentBSPage].length > 0 ? (
                             bestSeller[currentBSPage].map((book) => (
                                 <div key={book.id} className="book">
-                                    <Link to={`/book/${book.id}`}>
-                                        <img src={book.image_url} className='bookCover' />
-                                    </Link>
+                                    <img
+                                        src={book.image_url}
+                                        className='bookCover'
+                                        onClick={() => navigate("/login")}
+                                        style={{ cursor: 'pointer' }}
+                                    />
                                     <p className="bookTitle">{book.title}</p>
                                     <p className="bookAuthor">{book.author}</p>
                                     <p className="bookPrice">{book.price}</p>
@@ -134,9 +140,12 @@ function LandingPage() {
                         {newBooks[currentNewPage].length > 0 ? (
                             newBooks[currentNewPage].map((book) => (
                                 <div key={book.id} className="book">
-                                    <Link to={`/book/${book.id}`}>
-                                        <img className="bookCover" src={book.image_url} alt={book.title} />
-                                    </Link>   
+                                    <img
+                                        src={book.image_url}
+                                        className='bookCover'
+                                        onClick={() => navigate("/login")}
+                                        style={{ cursor: 'pointer' }}
+                                    />
                                     <p className="bookTitle">{book.title}</p>
                                     <p className="bookAuthor">{book.author}</p>
                                     <p className="bookPrice">{book.price}</p>
