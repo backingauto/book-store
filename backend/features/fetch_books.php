@@ -12,7 +12,6 @@ try {
         $offset = ($page - 1) * $limit;
 
         if ($purpose === "bestSeller") {
-
             $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY sold DESC LIMIT $limit OFFSET $offset";
         } elseif ($purpose === "newBooks") {
             $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY time DESC LIMIT $limit OFFSET $offset";
