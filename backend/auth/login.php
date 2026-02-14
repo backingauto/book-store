@@ -34,11 +34,11 @@ if ($stmt->num_rows == 0) {
 $stmt->bind_result($id, $username, $email, $hashedPassword, $salt);
 $stmt->fetch();
 
-//verify password
-if (!password_verify($salt . $password, $hashedPassword)) {
+if (!password_verify($password, $hashedPassword)) {
     echo json_encode(["success"=>false, "message"=>"invalid password"]);
     exit();
 }
+
 
 //set auth token
 $auth_token = bin2hex(random_bytes(16));
