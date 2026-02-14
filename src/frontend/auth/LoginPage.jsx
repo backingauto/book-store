@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";   
 import DOMPurify from "dompurify";
 import './Auth.css';
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
 
 function LoginPage() {
 
@@ -49,31 +51,53 @@ function LoginPage() {
     }
 
     return (
-        <div className='loginPage'>
-            <div className='loginContainer'>
-                <p>login page</p>
-                <br/>
-                <br/>
+        <div className="loginPage">
+            <Header />
 
-                <form onSubmit={handleForm}>
-                <label>Username/Email:</label>
-                    <input type="text" name="usernameOrEmail" value={usernameOrEmail} onChange={handleUsernameOrEmailChange} placeholder='enter your username or email' required />
+            <div className="loginContent">
+                <div className="loginContainer">
+                    <h1>Welcome Back</h1>
+                    <h2>Please login to continue</h2>
 
-                    <label>Password:</label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} placeholder='enter your password' required />
+                    <form onSubmit={handleForm}>
+                        <label>Username/Email:</label>
+                        <input
+                            type="text"
+                            name="usernameOrEmail"
+                            value={usernameOrEmail}
+                            onChange={handleUsernameOrEmailChange}
+                            placeholder="Enter your username or email"
+                            required
+                        />
 
-                    <br/>
-                    <button type="submit">Login</button>
-                    <br/>
-                    <br/>
-                </form>
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            placeholder="Enter your password"
+                            required
+                        />
+
+                        <button type="submit">Login</button>
+                    </form>
+
+                    {message && <p className="message">{message}</p>}
+                </div>
             </div>
-            {message && <p className="message">{message}<br/></p>}
-        
-            <p>no account? <br/><Link to="/register">Click here to sign up!</Link></p>
-            <Link to="/">Go back to home</Link>
+
+            <div className="loginFooter">
+                <p>No account?</p>
+                <Link to="/register">Click here to sign up!</Link>
+                <br />
+                <Link to="/">Go back to home</Link>
+            </div>
+
+            <Footer />
         </div>
-    )
+    );
+
 }
 
 export default LoginPage;

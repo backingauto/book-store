@@ -16,7 +16,7 @@ function Header() {
             </div>
 
             <div className="search-bar">
-                <input type="text" placeholder="Search for books..." />
+                <input type="text" placeholder="Search anything..." />
                 <button>🔍</button>
             </div>
 

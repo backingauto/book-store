@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import DOMPurify from "dompurify";
 import './Auth.css';
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
 
 
 function RegisterPage() {
@@ -58,35 +60,70 @@ function RegisterPage() {
     }
 
     return (
-        <div className='registerPage'>
+        <div className="registerPage">
+            <Header />
 
-            <div className='registerContainer'>
-                <h1>Create an Account</h1>
-                <h2>Please enter your info</h2>
-                <br/>
-                <br/>
+            <div className="registerContent">
+                <div className="registerContainer">
+                    <h1>Create an Account</h1>
+                    <h2>Please enter your info</h2>
 
-                <form onSubmit={handleForm}>
-                    <label>Username:</label>
-                    <input type="text" name="username" value={username} onChange={handleUsernameChange} required />
+                    <form onSubmit={handleForm}>
+                        <label>Username:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            placeholder="Enter your username"
+                            onChange={handleUsernameChange}
+                            required
+                        />
 
-                    <label>Email:</label>
-                    <input type="email" name="email" value={email} onChange={handleEmailChange} required />
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            placeholder="Enter your email"
+                            onChange={handleEmailChange}
+                            required
+                        />
 
-                    <label>Password:</label>
-                    <input type="password" name="password" value={password} onChange={handlePasswordChange} required />
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            placeholder="Enter your password"
+                            onChange={handlePasswordChange}
+                            required
+                        />
 
-                    <label>Confirm Password:</label>
-                    <input type="password" name="password2" value={password2} onChange={handlePassword2Change} required />
+                        <label>Confirm Password:</label>
+                        <input
+                            type="password"
+                            name="password2"
+                            value={password2}
+                            placeholder="Renter your password"
+                            onChange={handlePassword2Change}
+                            required
+                        />
 
-                    <br/>
-                    <button type="submit">Register</button>
-                </form>
+                        <button type="submit">Register</button>
+                    </form>
+                </div>
             </div>
-            <p>already have an account? <br/><Link to="/login">Click here to login!</Link></p>
-            <Link to="/">Go back to home</Link>
+
+            <div className="registerFooter">
+                <p>Already have an account?</p>
+                <Link to="/login">Click here to login!</Link>
+                <br />
+                <Link to="/">Go back to home</Link>
+            </div>
+
+            <Footer />
         </div>
-    )
+    );
 }
 
 export default RegisterPage;
