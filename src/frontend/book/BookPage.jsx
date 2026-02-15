@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
 import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
 import "./BookPage.css";
+import NavBar from '../layout/NavBar';
 
 
 export const addToShoppingCart = async (bookId, setInShoppingCart) => {

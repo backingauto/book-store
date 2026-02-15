@@ -1,6 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";   
 import "./HomePage.css";
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
+import NavBar from '../layout/NavBar';
 
 function HomePage() {
 
@@ -41,7 +44,7 @@ function HomePage() {
                         </Link>
                         <h3 className='bookTitle'> {book.title}</h3>
                         <p className='bookAuthor'>{book.author}</p>
-                        <p className='bookPrice'>{book.price}</p>
+                        <p className='bookPrice'>${book.price}</p>
                     </div>
                 ))}
             </div>

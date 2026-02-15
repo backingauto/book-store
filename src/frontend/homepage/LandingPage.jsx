@@ -77,7 +77,7 @@ function LandingPage() {
                                 </Link>
                                 <p className="bookTitle">{book.title}</p>
                                 <p className="bookAuthor">{book.author}</p>
-                                <p className="bookPrice">{book.price}</p>
+                                <p className="bookPrice">${book.price}</p>
                             </div>
                         ))
                     ) : (
@@ -95,7 +95,7 @@ function LandingPage() {
                                 <img className="bookCover" src={book.image_url} alt={book.title} />
                                 <p className="bookTitle">{book.title}</p>
                                 <p className="bookAuthor">{book.author}</p>
-                                <p className="bookPrice">{book.price}</p>
+                                <p className="bookPrice">${book.price}</p>
                             </div>
                         ))
                     ) : (

@@ -4,13 +4,13 @@ include '../security.php';
 try {
 
     $location = $_GET["location"] ?? "homepage";
-    $purpose = $_GET["purpose"];
+    $purpose = $_GET["purpose"] ?? null; #null to avoid when no book
 
     if ($location === "landingPage") {
         if ($purpose === "bestSeller") {
             $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY sold DESC LIMIT 6";
         } elseif ($purpose === "newBooks") {
-            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY time DESC LIMIT 6";
+            $query = "SELECT id, title, author, price, image_url, rating FROM books ORDER BY created_at DESC LIMIT 6";
         }
 
     } elseif ($location === "homepage") {

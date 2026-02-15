@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
 import { addToShoppingCart, removeFromShoppingCart } from "../book/BookPage";
+import NavBar from '../layout/NavBar';
 
 
 function ShoppingCartPage() {
