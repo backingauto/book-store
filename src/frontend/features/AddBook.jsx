@@ -42,8 +42,8 @@ function AddBook() {
 
             const result = await response.json();
             if (result.success) {
-                setMessage("Book uploaded successfully! Redirecting to homepage");
-                navigate("/homepage");
+                setMessage("Book uploaded successfully! Redirecting to main page");
+                navigate("/");
             } else {
                 setMessage(result.error || "Failed to upload book.");
             }

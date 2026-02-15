@@ -1,8 +1,5 @@
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './frontend/layout/Header';
-import Footer from './frontend/layout/Footer';
-import NavBar from './frontend/layout/NavBar';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import RegisterPage from './frontend/auth/RegisterPage';
 import LoginPage from './frontend/auth/LoginPage';

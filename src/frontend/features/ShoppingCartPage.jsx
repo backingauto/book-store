@@ -46,7 +46,7 @@ function ShoppingCartPage() {
             const data = await response.json();
             if (data.success) {
                 alert("You have checked out.");
-                navigate("/homepage");
+                navigate("/");
             } else {
                 console.error("Failed to checkout");
             }

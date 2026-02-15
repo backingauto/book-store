@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import DOMPurify from "dompurify";
-import './Auth.css';
+import './auth.css';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
