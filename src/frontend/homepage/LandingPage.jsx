@@ -9,8 +9,26 @@ function LandingPage() {
 
         const [bestSeller, setBestSeller] = useState([]);
         const [newBooks, setNewBooks] = useState([]);
+
+        const [isLoggedIn, setIsLoggedIn] = useState(false);
     
         useEffect(() => {
+
+            // check if login
+            const checkAuth = async () => {
+                try {
+                    const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller", {
+                        method: "GET",
+                        credentials: "include"
+                    });
+                    const data = await response.json();
+                    setIsLoggedIn(Boolean(data.success));
+                } catch {
+                    setIsLoggedIn(false);
+                }
+            };
+
+
             const fetchBestSeller = async () => {
                 try {
                     const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller", {
@@ -47,9 +65,13 @@ function LandingPage() {
                 }
             }
     
+            checkAuth();
             fetchBestSeller();
             fetchNewBooks();
         }, [])
+
+        //requires login to view the book page
+        const getBookTarget = (bookId) => (isLoggedIn ? `/book/${bookId}` : '/login');
 
     return (
         <div className="landingPage">
@@ -57,9 +79,11 @@ function LandingPage() {
             <div className="title">
                 <h1>Welcome to BookStore</h1>
                 <p>Your one-stop shop for books of all genres. Find your next great read today!</p>
-                <div className="buttons">
-                    <Link to="/login">Click here to login!</Link>
-                </div>
+                {!isLoggedIn && (
+                    <div className="buttons">
+                        <Link to="/login">Click here to login!</Link>
+                    </div>
+                )}
             </div>
 
             <div className="banner">
@@ -72,7 +96,7 @@ function LandingPage() {
                     {bestSeller.length > 0 ? (
                         bestSeller.map((book) => (
                             <div key={book.id} className="book">
-                                <Link to={"/book/" + book.id}>
+                                <Link to={getBookTarget(book.id)}>
                                     <img src={book.image_url} className='bookCover'></img>
                                 </Link>
                                 <p className="bookTitle">{book.title}</p>
@@ -92,7 +116,9 @@ function LandingPage() {
                     {newBooks.length > 0 ? (
                         newBooks.map((book) => (
                             <div key={book.id} className="book">
-                                <img className="bookCover" src={book.image_url} alt={book.title} />
+                                <Link to={getBookTarget(book.id)}>
+                                    <img className="bookCover" src={book.image_url} alt={book.title} />
+                                </Link>
                                 <p className="bookTitle">{book.title}</p>
                                 <p className="bookAuthor">{book.author}</p>
                                 <p className="bookPrice">${book.price}</p>
