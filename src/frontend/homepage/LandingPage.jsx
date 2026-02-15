@@ -17,7 +17,7 @@ function LandingPage() {
             // check if login
             const checkAuth = async () => {
                 try {
-                    const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller", {
+                    const response = await fetch("http://localhost/bookstore/bookstore_backend/auth/check_auth.php", {
                         method: "GET",
                         credentials: "include"
                     });
