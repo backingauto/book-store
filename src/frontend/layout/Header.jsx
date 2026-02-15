@@ -1,13 +1,45 @@
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
-function Header() {
+function Header({ isLoggedIn = false, onLogout }) {
+    const navigate = useNavigate();
+
+    const protectedLink = (path) => (isLoggedIn ? path : '/login');
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost/bookstore/bookstore_backend/auth/logout.php', {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                if (onLogout) { 
+                    onLogout();
+                }
+                navigate('/');
+            } else {
+                alert('Logout failed: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while logging out.');
+        }
+    };
+
     return (
         <header className="header">
             <nav className="nav">
                 <ul>
-                    <li>Home</li>
-                    <li>Categories</li>
-                    <li>Account</li>
+                    <li><Link to="/" className="headerLink">Home</Link></li>
+
+                    <li><Link to={protectedLink('/dashboard')} className="headerLink">Sell Book</Link></li>
+                    <li><Link to={protectedLink('/wishListPage')} className="headerLink">Wishlist</Link></li>
+                    <li><Link to={protectedLink('/shoppingCartPage')} className="headerLink">Shopping Cart</Link></li>
+                    <li><Link to={protectedLink('/purchaseHistoryPage')} className="headerLink">Purchase History</Link></li>
+                    <li><Link to={protectedLink('/reviewPage')} className="headerLink">Review History</Link></li>
                 </ul>
             </nav>
 
@@ -18,6 +50,13 @@ function Header() {
             <div className="search-bar">
                 <input type="text" placeholder="Search anything..." />
                 <button>🔍</button>
+
+                {isLoggedIn ? (
+                    <button className="authButton" onClick={handleLogout}>Logout</button>
+                ) : (
+                    <Link to="/login" className="authButton linkButton">Login</Link>
+                )}
+
             </div>
 
 

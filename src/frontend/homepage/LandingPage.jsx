@@ -129,6 +129,11 @@ function LandingPage() {
                     )}
                 </div>
             </section>
+
+            <div className='showAllBooksSection'>
+                <Link to={isLoggedIn ? '/homepage' : '/login'} className='showAllBooksButton'>View All Books</Link>
+            </div>
+
             <Footer />
 
         </div>

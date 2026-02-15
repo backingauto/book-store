@@ -32,6 +32,7 @@
   margin: 0;
   padding: 0;
   gap: 18px;
+  flex-wrap: wrap;
 }
 
 .nav ul li {
@@ -82,4 +83,30 @@
 
 .headerLink:hover {
   text-decoration: underline;
+}
+
+.headerLink {
+  color: white;
+  text-decoration: none;
+}
+
+.headerLink:hover {
+  text-decoration: underline;
+}
+
+.authButton {
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 6px;
+  background: #e76f51;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.authButton.linkButton {
+  line-height: 36px;
 }
