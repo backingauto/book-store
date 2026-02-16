@@ -38,6 +38,16 @@ body {
 
 .landingPage .featuredBooks {
     align-items: center;
+    width: 90vw;
+    max-width: 1200px;
+}
+
+.landingPage .bestSellerRow,
+.landingPage .newBooksRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .landingPage .bookContainer {
@@ -45,21 +55,18 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
+    min-height: 320px;
+}
+
+.landingPage .book {
+    width: 180px;
 }
 
 .landingPage .bookCover {
-    width: 8vw;
+    width: 140px;
     height: 25vh;
     border-radius: 15px;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.landingPage .bookText {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 8px;
-    line-height: 1.2;
 }
 
 .landingPage .bookTitle {
@@ -68,24 +75,38 @@ body {
     margin: 5px 0;
 }
 
-.homepage .bookAuthor {
+.landingPage  .bookAuthor {
     font-size: 15px;
     font-weight: normal;
     margin: 3px 0;
 }
 
-.homepage .bookPrice {
+.landingPage  .bookPrice {
     font-size: 15px;
     font-weight: normal;
     margin: 3px 0;
 }
 
+.landingPage .arrow {
+    border: none;
+    background: transparent;
+    color: #222;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 0.4rem;
+}
 
-.showAllBooksSection {
+.landingPage .arrow:hover {
+    color: #555;
+}
+
+
+.viewAllBooks  {
     margin: 1.5rem 0 3rem;
 }
 
-.showAllBooksButton {
+.viewAllBooks button {
     display: inline-block;
     padding: 0.8rem 1.4rem;
     background-color: #222;
@@ -93,8 +114,10 @@ body {
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
+    border: none;
+    cursor: pointer;
 }
 
-.showAllBooksButton:hover {
+.viewAllBooks button:hover {
     background-color: #444;
 }

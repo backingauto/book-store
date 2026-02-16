@@ -1,77 +1,104 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import './LandingPage.css';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
+const TOTAL_PAGES = 3;
 
 function LandingPage() {
 
-        const [bestSeller, setBestSeller] = useState([]);
-        const [newBooks, setNewBooks] = useState([]);
+    const navigate = useNavigate();
 
-        const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
-        useEffect(() => {
+    const [bestSeller, setBestSeller] = useState([[], [], []]);
+    const [currentBSPage, setCurrentBSPage] = useState(0);
 
-            // check if login
-            const checkAuth = async () => {
-                try {
-                    const response = await fetch("http://localhost/bookstore/bookstore_backend/auth/check_auth.php", {
+    const [newBooks, setNewBooks] = useState([[], [], []]);
+    const [currentNewPage, setCurrentNewPage] = useState(0);
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // check if login
+        const checkAuth = async () => {
+            try {
+                const response = await fetch("http://localhost/bookstore/bookstore_backend/auth/check_auth.php", {
+                    method: "GET",
+                    credentials: "include"
+                });
+                const data = await response.json();
+                setIsLoggedIn(Boolean(data.success));
+            } catch {
+                setIsLoggedIn(false);
+            }
+        };
+
+        // fetch books for bestseller (3 pages)
+        const fetchBestSeller = async () => {
+            try {
+                const pages = [[], [], []];
+
+                for (let i=0; i< TOTAL_PAGES; i++) {
+                    const response = await fetch(`http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller&page=${i + 1}`, {
                         method: "GET",
                         credentials: "include"
                     });
-                    const data = await response.json();
-                    setIsLoggedIn(Boolean(data.success));
-                } catch {
-                    setIsLoggedIn(false);
-                }
-            };
 
-
-            const fetchBestSeller = async () => {
-                try {
-                    const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=bestSeller", {
-                        method: "GET",
-                        credentials: "include"
-                    });
-    
                     const data = await response.json();
                     if (data.success) {
-                        setBestSeller(data.books);
+                        pages[i] = data.books;
                     } else {
                         console.error("Failed to fetch books.");
                     }
-                } catch (error) {
-                    console.error("Error fetching books:", error);
                 }
-            }
 
-            const fetchNewBooks = async () => {
-                try {
-                    const response = await fetch("http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=newBooks", {
+                setBestSeller(pages);
+            } catch (error) {
+                console.error("Error fetching books: ", error);
+            }
+        }
+
+        // fetch books for new books (3 pages)
+        const fetchNewBooks = async () => {
+            try {
+                const pages = [[], [], []];
+                
+                for (let i = 0; i < TOTAL_PAGES; i++) {
+                    const response = await fetch(`http://localhost/bookstore/bookstore_backend/features/fetch_books.php?location=landingPage&purpose=newBooks&page=${i + 1}`, {
                         method: "GET",
                         credentials: "include"
                     });
-    
+
                     const data = await response.json();
                     if (data.success) {
-                        setNewBooks(data.books);
+                        pages[i] = data.books;
                     } else {
-                        console.error("Failed to fetch books.");
+                        console.error("failed to fetch new books.");
                     }
-                } catch (error) {
-                    console.error("Error fetching books:", error);
-                }
-            }
-    
-            checkAuth();
-            fetchBestSeller();
-            fetchNewBooks();
-        }, [])
 
-        //requires login to view the book page
-        const getBookTarget = (bookId) => (isLoggedIn ? `/book/${bookId}` : '/login');
+                }
+                setNewBooks(pages);
+
+            }  catch (error) {
+                console.error("Error fetching new books:", error);
+            }
+        }
+
+        checkAuth();
+        fetchBestSeller();
+        fetchNewBooks();
+    }, [])
+
+    const goToPrevBSPage = () => setCurrentBSPage((prev) => (prev === 0 ? TOTAL_PAGES - 1 : prev - 1));
+    const goToNextBSPage = () => setCurrentBSPage((prev) => (prev === TOTAL_PAGES - 1 ? 0 : prev + 1));
+    const goToPrevNewPage = () => setCurrentNewPage((prev) => (prev === 0 ? TOTAL_PAGES - 1 : prev - 1));
+    const goToNextNewPage = () => setCurrentNewPage((prev) => (prev === TOTAL_PAGES - 1 ? 0 : prev + 1));
+
+    // requires login to view book
+    const handleBookClick = (bookId) => {
+        navigate(isLoggedIn ? `/book/${bookId}` : '/login');
+    };
+
 
     return (
         <div className="landingPage">
@@ -92,46 +119,68 @@ function LandingPage() {
 
             <section className="featuredBooks">
                 <h2>Best Sellers</h2>
-                <div className="bookContainer">
-                    {bestSeller.length > 0 ? (
-                        bestSeller.map((book) => (
-                            <div key={book.id} className="book">
-                                <Link to={getBookTarget(book.id)}>
-                                    <img src={book.image_url} className='bookCover'></img>
-                                </Link>
-                                <p className="bookTitle">{book.title}</p>
-                                <p className="bookAuthor">{book.author}</p>
-                                <p className="bookPrice">${book.price}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Loading best sellers...</p>
-                    )}
+                <div className="bestSellerRow">
+                    <button className="arrow left" onClick={goToPrevBSPage}>❮</button>
+
+                    <div className="bookContainer">
+                        {bestSeller[currentBSPage].length > 0 ? (
+                            bestSeller[currentBSPage].map((book) => (
+                                <div key={book.id} className="book">
+                                    <img
+                                        src={book.image_url}
+                                        className='bookCover'
+                                        alt={book.title}
+                                        onClick={() => handleBookClick(book.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    />
+                                    <p className="bookTitle">{book.title}</p>
+                                    <p className="bookAuthor">{book.author}</p>
+                                    <p className="bookPrice">${book.price}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>Loading best sellers...</p>
+                        )}
+                    </div>
+
+                    <button className="arrow right" onClick={goToNextBSPage}>❯</button>
                 </div>
             </section>
 
             <section className="featuredBooks">
                 <h2>New Books</h2>
-                <div className="bookContainer">
-                    {newBooks.length > 0 ? (
-                        newBooks.map((book) => (
-                            <div key={book.id} className="book">
-                                <Link to={getBookTarget(book.id)}>
-                                    <img className="bookCover" src={book.image_url} alt={book.title} />
-                                </Link>
-                                <p className="bookTitle">{book.title}</p>
-                                <p className="bookAuthor">{book.author}</p>
-                                <p className="bookPrice">${book.price}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>Loading new books...</p>
-                    )}
+                <div className="newBooksRow">
+                    <button className="arrow left" onClick={goToPrevNewPage}>❮</button>
+
+                    <div className="bookContainer">
+                        {newBooks[currentNewPage].length > 0 ? (
+                            newBooks[currentNewPage].map((book) => (
+                                <div key={book.id} className="book">
+                                    <img
+                                        src={book.image_url}
+                                        className='bookCover'
+                                        alt={book.title}
+                                        onClick={() => handleBookClick(book.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    />
+                                    <p className="bookTitle">{book.title}</p>
+                                    <p className="bookAuthor">{book.author}</p>
+                                    <p className="bookPrice">${book.price}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>Loading new books...</p>
+                        )}
+                    </div>
+
+                    <button className="arrow right" onClick={goToNextNewPage}>❯</button>
                 </div>
             </section>
 
-            <div className='showAllBooksSection'>
-                <Link to={isLoggedIn ? '/homepage' : '/login'} className='showAllBooksButton'>View All Books</Link>
+            <div className="viewAllBooks">
+                <button onClick={() => navigate(isLoggedIn ? '/homepage' : '/login')}>
+                    {isLoggedIn ? 'View all books' : 'Login to view all books'}
+                </button>
             </div>
 
             <Footer />
