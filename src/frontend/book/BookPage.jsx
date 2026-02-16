@@ -2,7 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import './BookPage.css';
-import NavBar from '../layout/NavBar';
+import Footer from '../layout/Footer';
+import Header from '../layout/Header';
 
 export const addToShoppingCart = async (bookId, setInShoppingCart) => {
   try {
@@ -131,95 +132,106 @@ function BookPage() {
     return <p className="loading">Loading book details...</p>;
   }
 
-  return (
-    <div className="bookPage">
-      <NavBar />
+    return (
+        <div className="bookPage">
+        <Header />
 
-      <main className="bookContainer">
-        <section className="bookInfo">
-          <div className="bookCoverFrame">
-            <img src={book.image_url} alt={book.title} className="bookCover" />
-          </div>
+        <main className="bookContainer">
+            <section className="bookInfo">
+                <div className="bookCoverFrame">
+                    <img src={book.image_url} alt={book.title} className="bookCover" />
+                </div>
 
-          <div className="bookDetails">
-            <h1 className="bookTitle">{book.title}</h1>
-            <h2 className="bookAuthor">by {book.author}</h2>
+                <div className="bookDetails">
+                    <h1 className="bookTitle">{book.title}</h1>
+                    <h2 className="bookAuthor">by {book.author}</h2>
 
-            <div className="bookMetaRow">
-              <p className="bookPrice">${book.price}</p>
-              <p className="bookStock">Stock: {book.stock}</p>
-              <p className="bookRating">Rating: {book.rating > 0 ? book.rating : 'N/A'}</p>
-            </div>
+                    <div className="bookMetaRow">
+                        <p className="bookPrice">${book.price}</p>
+                        <p className="bookStock">Stock: {book.stock}</p>
+                        <p className="bookRating">Rating: {book.rating > 0 ? book.rating : 'N/A'}</p>
+                    </div>
 
-            <p className="bookDescription">{book.description}</p>
+                    <p className="bookDescription">{book.description}</p>
 
-            <div className="actionRow">
-              <button className="wishlist_button" onClick={toggleWishlist}>
-                {wishlist ? <FaHeart /> : <FaRegHeart />}
-                {wishlist ? ' Remove from wishlist' : ' Add to wishlist'}
-              </button>
+                    <div className="actionRow">
+                        <button className="wishlist_button" onClick={toggleWishlist}>
+                            {wishlist ? <FaHeart /> : <FaRegHeart />}
+                            {wishlist ? ' Remove from wishlist' : ' Add to wishlist'}
+                        </button>
 
-              <div className="shoppingCartControls">
-                <p>Shopping Cart</p>
-                <button
-                  className="cartButton"
-                  onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)}
-                  disabled={inShoppingCart === 0}
-                >
-                  -
-                </button>
-                <span className="cartQuantity">{inShoppingCart}</span>
-                <button
-                  className="cartButton"
-                  onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
-                  disabled={inShoppingCart >= stock}
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section className="reviewSection">
-          <h2>Write a Review</h2>
-          <form onSubmit={submitReview} className="reviewForm">
-            <div className="rating">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <FaStar
-                  key={star}
-                  className={userRating >= star ? 'star selected' : 'star'}
-                  onClick={() => setUserRating(star)}
+                        <div className="shoppingCartControls">
+                            <p>Shopping Cart</p>
+                            <button
+                                className="cartButton"
+                                onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)}
+                                disabled={inShoppingCart === 0}
+                            >
+                                -
+                            </button>
+                            <span className="cartQuantity">{inShoppingCart}</span>
+                            <button
+                                className="cartButton"
+                                onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
+                                disabled={inShoppingCart >= stock}
+                            >
+                                +
+                            </button>
+                        </div>
+
+                        <button
+                            className="addToCartButton"
+                            onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
+                            disabled={inShoppingCart > stock}
+                        >
+                            Add to shopping cart
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section className="reviewSection">
+            <h2>Write a Review</h2>
+            <form onSubmit={submitReview} className="reviewForm">
+                <div className="rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <FaStar
+                    key={star}
+                    className={userRating >= star ? 'star selected' : 'star'}
+                    onClick={() => setUserRating(star)}
+                    />
+                ))}
+                </div>
+
+                <textarea
+                placeholder="Write your review..."
+                value={userReview}
+                onChange={(e) => setUserReview(e.target.value)}
+                rows={4}
                 />
-              ))}
-            </div>
+                <button type="submit">Submit Review</button>
+            </form>
+            </section>
 
-            <textarea
-              placeholder="Write your review..."
-              value={userReview}
-              onChange={(e) => setUserReview(e.target.value)}
-              rows={4}
-            />
-            <button type="submit">Submit Review</button>
-          </form>
-        </section>
+            <section className="reviews">
+            <h2>Reviews</h2>
+            {reviews.length === 0 ? (
+                <p>No reviews yet.</p>
+            ) : (
+                reviews.map((review, index) => (
+                <article key={index} className="review">
+                    <p className="reviewRating">{'⭐'.repeat(review.rating)}</p>
+                    <p className="reviewReview">{review.review}</p>
+                </article>
+                ))
+            )}
+            </section>
+        </main>
 
-        <section className="reviews">
-          <h2>Reviews</h2>
-          {reviews.length === 0 ? (
-            <p>No reviews yet.</p>
-          ) : (
-            reviews.map((review, index) => (
-              <article key={index} className="review">
-                <p className="reviewRating">{'⭐'.repeat(review.rating)}</p>
-                <p className="reviewReview">{review.review}</p>
-              </article>
-            ))
-          )}
-        </section>
-      </main>
-    </div>
-  );
+        <Footer />
+        </div>
+    );
 }
 
 export default BookPage;
