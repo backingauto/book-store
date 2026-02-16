@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import './Header.css';
 
 function Header({ isLoggedIn = false, onLogout }) {
     const navigate = useNavigate();
+    const [searchKeyword, setSearchKeyword] = useState('');
 
     const protectedLink = (path) => (isLoggedIn ? path : '/login');
 
@@ -29,6 +31,27 @@ function Header({ isLoggedIn = false, onLogout }) {
         }
     };
 
+    const handleSearch = () => {
+        const trimmedKeyword = searchKeyword.trim();
+
+        if (!isLoggedIn) {
+            navigate('/login');
+            return;
+        }
+
+        if (trimmedKeyword !== '') {
+            navigate('/homepage?search=' + encodeURIComponent(trimmedKeyword));
+        } else {
+            navigate('/homepage');
+        }
+    }
+
+    const handleSearchKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <header className="header">
             <nav className="nav">
@@ -48,8 +71,14 @@ function Header({ isLoggedIn = false, onLogout }) {
             </div>
 
             <div className="search-bar">
-                <input type="text" placeholder="Search anything..." />
-                <button>🔍</button>
+                <input
+                    type="text"
+                    placeholder="Search by title or author..."
+                    value={searchKeyword}
+                    onChange={(event) => setSearchKeyword(event.target.value)}
+                    onKeyDown={handleSearchKeyDown}
+                />
+                <button onClick={handleSearch}>🔍</button>
 
                 {isLoggedIn ? (
                     <button className="authButton" onClick={handleLogout}>Logout</button>

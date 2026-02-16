@@ -75,7 +75,7 @@ function LandingPage() {
 
     return (
         <div className="landingPage">
-            <Header />
+            <Header isLoggedIn={isLoggedIn} />
             <div className="title">
                 <h1>Welcome to BookStore</h1>
                 <p>Your one-stop shop for books of all genres. Find your next great read today!</p>
