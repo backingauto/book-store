@@ -29,7 +29,7 @@ function NavBar() {
     return (
         <nav className="navBar">
             <div className="navContainer">
-                <Link to="/homepage">
+                <Link to="/">
                     <img src={logo} alt="Logo" className="logo" />
                 </Link>
                 

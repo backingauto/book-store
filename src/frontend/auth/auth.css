@@ -1,90 +1,105 @@
-.loginPage,
-.registerPage {
+/* Shared auth page layout (Register + Login) */
+.registerPage,
+.loginPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f4;
+}
+
+/* Center the card */
+.registerContent,
+.loginContent {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 90vh;
-    background-color: #f4f4f4;
-    font-family: Helvetica, sans-serif;
-    flex-direction: column;
+
+    margin-top: 40px;
 }
 
-.loginContainer,
-.registerContainer {
-    background: white;
-    padding: 60px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* Card */
+.registerContainer,
+.loginContainer {
+    background-color: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
     width: 100%;
-    max-width: 500px;
-    min-height: 600px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 100px;
+    max-width: 420px;
 }
 
-.loginContainer h2,
-.registerContainer h2 {
+/* Titles */
+.registerContainer h1,
+.loginContainer h1 {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.registerContainer h2,
+.loginContainer h2 {
+    margin: 0;
     margin-bottom: 30px;
-    font-size: 24px;
-    color: #333;
+    font-weight: normal;
+    font-size: 16px;
+    color: #666;
 }
 
+/* Labels */
 label {
     display: block;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
     text-align: center;
 }
 
-input {
-    width: 100%;
-    max-width: 300px;
+/* Inputs */
+.registerContainer input,
+.loginContainer input {
+    width: 85%;
     padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px;
+    margin-bottom: 18px;
+    border-radius: 30px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    font-size: 16px;
-    text-align: left;
+    box-sizing: border-box;
 }
 
-button {
-    width: 100%;
-    max-width: 300px;
+/* Buttons */
+.registerContainer button,
+.loginContainer button {
+    width: 50%;
     padding: 12px;
-    font-size: 16px;
-    background-color: #0077cc;
-    color: white;
+
+    border-radius: 10px;
     border: none;
-    border-radius: 8px;
+
+    background-color: black;
+    color: white;
+
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 30px;
+
+    display: block;
+    margin: 45px auto 0 auto;
 }
 
-button:hover {
-    background-color: #005fa3;
+.registerContainer button:hover,
+.loginContainer button:hover {
+    background-color: #333;
 }
+
+/* Bottom links */
+.registerFooter,
+.loginFooter {
+    text-align: center;
+    padding: 20px;
+}
+
 
 .message {
     margin-top: 15px;
-    color: red;
-    font-weight: bold;
-}
-
-.authLinks {
-    margin-top: 25px;
-    font-size: 14px;
-}
-
-.authLinks a {
-    color: #0077cc;
-    text-decoration: none;
-}
-
-.authLinks a:hover {
-    text-decoration: underline;
+    text-align: center;
 }

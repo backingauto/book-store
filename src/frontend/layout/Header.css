@@ -1,56 +1,112 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 20px;
-    background-color: #222;
-    color: white;
-    width: 97.3vw;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+
+  padding: 1rem 1.5rem;
+  background-color: #222;
+  color: white;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-bottom: 20px;
 }
 
-.logo h1 {
-    font-size: 1.5rem;
-    margin: 0;
+
+/* 3 equal columns */
+.nav,
+.logo,
+.search-bar {
+  flex: 1;
+}
+
+/* left */
+.nav {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .nav ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
 .nav ul li {
-    margin: 0 15px;
-    font-size: 1rem;
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.nav ul li:hover {
-    text-decoration: underline;
+/* center */
+.logo {
+  display: flex;
+  justify-content: center;
 }
 
+.logo h1 {
+  margin: 0.6rem;
+  font-size: 2rem;
+}
+
+/* right */
 .search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 .search-bar input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  height: 36px;
+  width: 300px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 .search-bar button {
-    background: #f4a261;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 6px;
+  background: #f4a261;
+  cursor: pointer;
 }
 
-.search-bar button:hover {
-    background: #e76f51;
+
+.headerLink {
+  color: white;
+  text-decoration: none;
+}
+
+.headerLink:hover {
+  text-decoration: underline;
+}
+
+.headerLink {
+  color: white;
+  text-decoration: none;
+}
+
+.headerLink:hover {
+  text-decoration: underline;
+}
+
+.authButton {
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 6px;
+  background: #e76f51;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.authButton.linkButton {
+  line-height: 36px;
 }

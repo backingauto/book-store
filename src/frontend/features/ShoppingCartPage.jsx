@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
 import { addToShoppingCart, removeFromShoppingCart } from "../book/BookPage";
-import NavBar from "../layout/NavBar.jsx";  //will be removed
-
+import Header from '../layout/Header';
 
 function ShoppingCartPage() {
 
@@ -46,7 +45,7 @@ function ShoppingCartPage() {
             const data = await response.json();
             if (data.success) {
                 alert("You have checked out.");
-                navigate("/homepage");
+                navigate("/");
             } else {
                 console.error("Failed to checkout");
             }
@@ -56,7 +55,7 @@ function ShoppingCartPage() {
 
     return (
         <div className="shoppingCartPage">
-            <NavBar />
+            <Header isLoggedIn />
             <h1>Your Shopping Cart</h1>
     
             {message ? <p className="message">{message}</p> : null}

@@ -1,8 +1,257 @@
 .bookPage {
-    margin-top: 12vh;
+  width: 100%;
+  min-height: 100vh;
+  background: #eef2ff;
+}
+
+.bookContainer {
+  width: min(1050px, 92vw);
+  margin: 0 auto;
+  padding: 104px 0 2rem;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.bookInfo,
+.reviewSection,
+.reviews {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #dce4ff;
+  box-shadow: 0 6px 18px rgba(32, 53, 125, 0.08);
+}
+
+.bookInfo {
+  padding: 1.1rem;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1.2rem;
+  align-items: start;
+}
+
+.bookCoverFrame {
+  width: 220px;
+  height: 320px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f3f5ff;
+  border: 1px solid #d7def9;
 }
 
 .bookCover {
-    width: 25%;
-    height: 35%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.bookDetails {
+  text-align: left;
+}
+
+.bookTitle {
+  margin: 0;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  color: #1f2d63;
+}
+
+.bookAuthor {
+  margin: 0.35rem 0 0;
+  font-size: 1.2rem;
+  color: #4b5b92;
+}
+
+.bookMetaRow {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.bookPrice,
+.bookStock,
+.bookRating {
+  margin: 0;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  background: #f5f7ff;
+  color: #223169;
+  font-weight: 600;
+}
+
+.bookDescription {
+  margin: 0.9rem 0 0;
+  line-height: 1.5;
+  color: #1f243a;
+}
+
+.actionRow {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.addToCartButton,
+.wishlist_button {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #1f2d63;
+  color: #fff;
+  padding: 0.6rem 0.95rem;
+}
+
+.addToCartButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+.shoppingCartControls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #f5f7ff;
+  border: 1px solid #dde5ff;
+  border-radius: 10px;
+  padding: 0.35rem 0.5rem;
+}
+
+.shoppingCartControls p {
+  margin: 0 0.2rem 0 0;
+  color: #44558f;
+  font-weight: 600;
+}
+
+.cartButton {
+  border: none;
+  border-radius: 8px;
+  background: #dbe4ff;
+  color: #213068;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cartButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.cartQuantity {
+  min-width: 1.3rem;
+  text-align: center;
+  font-weight: 700;
+  color: #24356f;
+}
+
+.reviewSection,
+.reviews {
+  padding: 1rem 1.1rem;
+  text-align: left;
+}
+
+.reviewSection h2,
+.reviews h2 {
+  margin: 0 0 0.65rem;
+  color: #223169;
+}
+
+.reviewForm {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.rating {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.star {
+  font-size: 1.25rem;
+  color: #c3c6d2;
+  cursor: pointer;
+}
+
+.star.selected {
+  color: #f5b301;
+}
+
+.reviewForm textarea {
+  resize: vertical;
+  min-height: 88px;
+  padding: 0.65rem;
+  border-radius: 9px;
+  border: 1px solid #ced8ff;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.reviewForm button {
+  width: fit-content;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.55rem 0.95rem;
+  background: #1f2d63;
+  color: #fff;
+}
+
+.reviews {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.review {
+  background: #f7f9ff;
+  border: 1px solid #e2e8ff;
+  border-radius: 9px;
+  padding: 0.75rem;
+}
+
+.reviewRating,
+.reviewReview,
+.reviews p {
+  margin: 0;
+}
+
+.loading,
+.message {
+  text-align: center;
+  margin-top: 2rem;
+  color: #344072;
+}
+
+@media (max-width: 840px) {
+  .bookContainer {
+    padding-top: 96px;
+  }
+
+  .bookInfo {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .bookCoverFrame {
+    width: min(60vw, 220px);
+    height: min(86vw, 320px);
+  }
+
+  .bookDetails {
+    width: 100%;
+    text-align: center;
+  }
+
+  .bookMetaRow,
+  .actionRow {
+    justify-content: center;
+  }
 }

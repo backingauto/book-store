@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";   
 import DOMPurify from "dompurify";
-import './Auth.css';
+import './auth.css';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
@@ -38,7 +38,7 @@ function LoginPage() {
 
             if (data.success) {
                 setMessage("Login Succesfully!");
-                navigate("/homepage");
+                navigate("/");
             } else {
                 setMessage(data.message);
             }
@@ -51,50 +51,53 @@ function LoginPage() {
     }
 
     return (
-        <div className='loginPage'>
+        <div className="loginPage">
             <Header />
-            
-            <div className='loginContainer'>
-                <h2>Sign In to Your Account</h2>
 
-                <form onSubmit={handleForm}>
-                    <label htmlFor="usernameOrEmail">Username or Email</label>
-                    <input
-                        type="text"
-                        id="usernameOrEmail"
-                        name="usernameOrEmail"
-                        value={usernameOrEmail}
-                        onChange={handleUsernameOrEmailChange}
-                        placeholder="Enter your username or email"
-                        required
-                    />
+            <div className="loginContent">
+                <div className="loginContainer">
+                    <h1>Welcome Back</h1>
+                    <h2>Please login to continue</h2>
 
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        placeholder="Enter your password"
-                        required
-                    />
+                    <form onSubmit={handleForm}>
+                        <label>Username/Email:</label>
+                        <input
+                            type="text"
+                            name="usernameOrEmail"
+                            value={usernameOrEmail}
+                            onChange={handleUsernameOrEmailChange}
+                            placeholder="Enter your username or email"
+                            required
+                        />
 
-                    <button type="submit">Login</button>
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            placeholder="Enter your password"
+                            required
+                        />
+
+                        <button type="submit">Login</button>
+                    </form>
 
                     {message && <p className="message">{message}</p>}
-                </form>
-
-                <div className="authLinks">
-                    <p>Don't have an account? <Link to="/register">Sign up</Link></p>
-                    <Link to="/">← Back to Landing Page</Link>
                 </div>
+            </div>
+
+            <div className="loginFooter">
+                <p>No account?</p>
+                <Link to="/register">Click here to sign up!</Link>
+                <br />
+                <Link to="/">Go back to home</Link>
             </div>
 
             <Footer />
         </div>
+    );
 
-    )
 }
 
 export default LoginPage;

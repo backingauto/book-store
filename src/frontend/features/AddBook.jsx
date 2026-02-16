@@ -2,8 +2,7 @@ import './Dashboard.css';
 import { useState } from "react";  
 import DOMPurify from "dompurify";
 import { useNavigate } from 'react-router-dom';
-import NavBar from "../layout/NavBar.jsx";  //will be removed
-
+import Header from '../layout/Header';
 
 function AddBook() {
 
@@ -43,8 +42,8 @@ function AddBook() {
 
             const result = await response.json();
             if (result.success) {
-                setMessage("Book uploaded successfully! Redirecting to homepage");
-                navigate("/homepage");
+                setMessage("Book uploaded successfully! Redirecting to main page");
+                navigate("/");
             } else {
                 setMessage(result.error || "Failed to upload book.");
             }
@@ -56,7 +55,7 @@ function AddBook() {
 
     return (
         <div>
-            <NavBar />
+            <Header isLoggedIn />
             <div className="addBookPage">
                 <h2>Sell a Book</h2>
                 <form onSubmit={handleSubmit} className="addBookForm">

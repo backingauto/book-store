@@ -23,8 +23,7 @@ if (empty($username)) {
     exit();
 }
 
-$salt = bin2hex(random_bytes(16));
-$hashedPassword = password_hash($salt . $password, PASSWORD_BCRYPT);
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
 //check if email or username already existed
 $query = "SELECT id FROM users WHERE email = ? OR username = ?";
@@ -39,9 +38,9 @@ if ($stmt->num_rows > 0) {
 }
 
 // insert new user into database
-$query = "INSERT INTO users (username, email, password, salt) VALUES (?, ?, ?, ?)";
+$query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("ssss", $username, $email, $hashedPassword, $salt);
+$stmt->bind_param("sss", $username, $email, $hashedPassword);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true, "message" => "Registration successful"]);

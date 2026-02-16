@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import NavBar from "../layout/NavBar.jsx";  //will be removed
+import Header from '../layout/Header';
 
 function PurchaseHistoryPage() {
 
@@ -31,7 +31,7 @@ function PurchaseHistoryPage() {
 
     return (
         <div className="purchaseHistoryPage">
-            <NavBar />
+            <Header isLoggedIn />
             <h1>Your Purchase History</h1>
     
             <p className="message">{message}</p>

@@ -1,3 +1,4 @@
+/* Ensure full-page layout */
 html, body {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@ html, body {
     height: 100%;
 }
 
+/* Main homepage layout */
 .homepage {
     display: flex;
     flex-direction: column;
@@ -14,6 +16,7 @@ html, body {
     padding-top: 140px;
 }
 
+/* Container for all books */
 .homepage .allBooksContainer {
     display: flex;
     flex-wrap: wrap;
@@ -22,19 +25,22 @@ html, body {
     gap: 40px 20px;
 }
 
+/* Individual book card */
 .homepage .bookContainer {
     width: calc(20% - 20px);
     margin-bottom: 40px;
     text-align: center;
 }
 
+/* Book cover image */
 .homepage .bookCover {
-    width: 9vw;
-    height: 29vh;
+    width: 15vw;
+    height: 20vh;
     border-radius: 15px;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Book text container */
 .homepage .bookText {
     display: flex;
     flex-direction: column;
@@ -43,20 +49,28 @@ html, body {
     line-height: 1.2;
 }
 
+/* Book title */
 .homepage .bookTitle {
     font-size: 18px;
     font-weight: bold;
     margin: 5px 0;
 }
 
+/* Author name */
 .homepage .bookAuthor {
     font-size: 15px;
     font-weight: normal;
     margin: 3px 0;
 }
 
+/* Book price */
 .homepage .bookPrice {
     font-size: 15px;
     font-weight: normal;
     margin: 3px 0;
+}
+
+.homepage .searchResultText {
+    margin: 10px 60px 0;
+    font-size: 18px;
 }

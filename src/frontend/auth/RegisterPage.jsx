@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from "react";
 import DOMPurify from "dompurify";
-import './Auth.css';
+import './auth.css';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
@@ -63,68 +63,67 @@ function RegisterPage() {
         <div className="registerPage">
             <Header />
 
-            <div className="registerContainer">
-                <h2>Create an Account</h2>
-                <p>Please enter your information to register</p>
+            <div className="registerContent">
+                <div className="registerContainer">
+                    <h1>Create an Account</h1>
+                    <h2>Please enter your info</h2>
 
-                <form onSubmit={handleForm}>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        placeholder="Choose a username"
-                        required
-                    />
+                    <form onSubmit={handleForm}>
+                        <label>Username:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            placeholder="Enter your username"
+                            onChange={handleUsernameChange}
+                            required
+                        />
 
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        placeholder="Enter your email"
-                        required
-                    />
+                        <label>Email:</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            placeholder="Enter your email"
+                            onChange={handleEmailChange}
+                            required
+                        />
 
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        placeholder="Enter a password"
-                        required
-                    />
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            placeholder="Enter your password"
+                            onChange={handlePasswordChange}
+                            required
+                        />
 
-                    <label htmlFor="password2">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="password2"
-                        name="password2"
-                        value={password2}
-                        onChange={handlePassword2Change}
-                        placeholder="Confirm your password"
-                        required
-                    />
+                        <label>Confirm Password:</label>
+                        <input
+                            type="password"
+                            name="password2"
+                            value={password2}
+                            placeholder="Renter your password"
+                            onChange={handlePassword2Change}
+                            required
+                        />
 
-                    <button type="submit" style={{ marginTop: '20px' }}>Register</button>
-                </form>
-
-                <div className="authLinks">
-                    <p>Already have an account? <Link to="/login">Login here</Link></p>
-                    <Link to="/">← Back to Landing Page</Link>
+                        <button type="submit">Register</button>
+                    </form>
                 </div>
+            </div>
+
+            <div className="registerFooter">
+                <p>Already have an account?</p>
+                <Link to="/login">Click here to login!</Link>
+                <br />
+                <Link to="/">Go back to home</Link>
             </div>
 
             <Footer />
         </div>
-
-    )
+    );
 }
 
 export default RegisterPage;

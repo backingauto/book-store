@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import NavBar from "../layout/NavBar.jsx";  //will be removed
+import Header from '../layout/Header';
 
 function ReviewPage() {
     const [reviews, setReviews] = useState([]);
@@ -52,7 +52,7 @@ function ReviewPage() {
 
     return (
         <div className="reviewPage">
-            <NavBar />
+            <Header isLoggedIn />
             <h1>Your review history</h1>
 
             {message ? <p className="message">{message}</p> : null}
