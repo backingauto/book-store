@@ -75,7 +75,7 @@ function LandingPage() {
 
     return (
         <div className="landingPage">
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} onLogout={() => setIsLoggedIn(false)} />
             <div className="title">
                 <h1>Welcome to BookStore</h1>
                 <p>Your one-stop shop for books of all genres. Find your next great read today!</p>

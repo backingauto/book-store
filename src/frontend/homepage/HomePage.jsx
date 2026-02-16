@@ -57,7 +57,7 @@ function HomePage() {
 
     return (
         <div className='homepage'>
-            <Header />
+            <Header isLoggedIn />
 
             {searchKeyword && (
                 <p className='searchResultText'>

@@ -2,7 +2,7 @@ import './Dashboard.css';
 import { useState } from "react";  
 import DOMPurify from "dompurify";
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../layout/NavBar';
+import Header from '../layout/Header';
 
 function AddBook() {
 
@@ -55,7 +55,7 @@ function AddBook() {
 
     return (
         <div>
-            <NavBar />
+            <Header isLoggedIn />
             <div className="addBookPage">
                 <h2>Sell a Book</h2>
                 <form onSubmit={handleSubmit} className="addBookForm">

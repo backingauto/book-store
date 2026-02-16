@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
 import { addToShoppingCart, removeFromShoppingCart } from "../book/BookPage";
-import NavBar from '../layout/NavBar';
-
+import Header from '../layout/Header';
 
 function ShoppingCartPage() {
 
@@ -56,7 +55,7 @@ function ShoppingCartPage() {
 
     return (
         <div className="shoppingCartPage">
-            <NavBar />
+            <Header isLoggedIn />
             <h1>Your Shopping Cart</h1>
     
             {message ? <p className="message">{message}</p> : null}

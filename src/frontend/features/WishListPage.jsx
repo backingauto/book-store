@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import NavBar from '../layout/NavBar';
+import Header from '../layout/Header';
 
 function WishListPage() {
 
@@ -50,7 +50,7 @@ function WishListPage() {
     }
     return (
         <div className="wishlistPage">
-            <NavBar />
+            <Header isLoggedIn />
             <h1>Your Wishlist</h1>
 
             {message ? <p className="message">{message}</p> : null}

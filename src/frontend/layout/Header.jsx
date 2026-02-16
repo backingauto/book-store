@@ -1,10 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Header.css';
 
 function Header({ isLoggedIn = false, onLogout }) {
     const navigate = useNavigate();
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [displayLoggedIn, setDisplayLoggedIn] = useState(isLoggedIn); // so it show login immeidaly after user logout
+
+
+    useEffect(() => {
+        setDisplayLoggedIn(isLoggedIn);
+    }, [isLoggedIn]);
 
     const protectedLink = (path) => (isLoggedIn ? path : '/login');
 
@@ -18,10 +24,12 @@ function Header({ isLoggedIn = false, onLogout }) {
             const data = await response.json();
 
             if (data.success) {
+                setDisplayLoggedIn(false);
+
                 if (onLogout) { 
                     onLogout();
                 }
-                navigate('/');
+                navigate('/', { replace: true });
             } else {
                 alert('Logout failed: ' + data.message);
             }
@@ -34,7 +42,7 @@ function Header({ isLoggedIn = false, onLogout }) {
     const handleSearch = () => {
         const trimmedKeyword = searchKeyword.trim();
 
-        if (!isLoggedIn) {
+        if (!displayLoggedIn) {
             navigate('/login');
             return;
         }
@@ -80,7 +88,7 @@ function Header({ isLoggedIn = false, onLogout }) {
                 />
                 <button onClick={handleSearch}>🔍</button>
 
-                {isLoggedIn ? (
+                {displayLoggedIn ? (
                     <button className="authButton" onClick={handleLogout}>Logout</button>
                 ) : (
                     <Link to="/login" className="authButton linkButton">Login</Link>

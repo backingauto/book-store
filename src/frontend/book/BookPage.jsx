@@ -134,7 +134,7 @@ function BookPage() {
 
     return (
         <div className="bookPage">
-        <Header />
+        <Header isLoggedIn />
 
         <main className="bookContainer">
             <section className="bookInfo">

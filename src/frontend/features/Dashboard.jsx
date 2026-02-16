@@ -1,7 +1,7 @@
 import './Dashboard.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import NavBar from '../layout/NavBar';
+import Header from '../layout/Header';
 
 function Dashboard() {
 
@@ -32,7 +32,7 @@ function Dashboard() {
 
     return (
         <div>
-            <NavBar />
+            <Header isLoggedIn />
 
             <div className='dashboardPage'>
                 <Link to="/addBook">
