@@ -47,6 +47,15 @@ try {
         }
     }
 
+    //completely remove the book(s)
+    elseif ($action === "removeAll") {
+        for ($i = count($shoppingCartArray) - 1; $i >= 0; $i--) {
+            if ($shoppingCartArray[$i] == $bookID) {
+                unset($shoppingCartArray[$i]);
+            }
+        }
+    }
+
     $updatedShoppingCart = implode(",", $shoppingCartArray);
 
     $updateCartQuery = "UPDATE users SET shopping_cart = ? WHERE email = ?";

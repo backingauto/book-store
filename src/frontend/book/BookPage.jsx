@@ -6,20 +6,23 @@ import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
 export const addToShoppingCart = async (bookId, setInShoppingCart, quantity = 1) => {
-  try {
-    const response = await fetch('http://localhost/bookstore/bookstore_backend/book/update_cart.php', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bookId, action: 'add' })
-    });
-    const data = await response.json();
-    if (data.success) {
-      setInShoppingCart(data.inShoppingCart);
+    try {
+        const response = await fetch('http://localhost/bookstore/bookstore_backend/book/update_cart.php', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ bookId, action: 'add', quantity })
+        });
+        const data = await response.json();
+        if (data.success) {
+            setInShoppingCart(data.inShoppingCart);
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error updating ShoppingCart:', error);
+        return false;
     }
-  } catch (error) {
-    console.error('Error updating ShoppingCart:', error);
-  }
 };
 
 export const removeFromShoppingCart = async (bookId, setInShoppingCart) => {
@@ -49,7 +52,9 @@ function BookPage() {
   const [inShoppingCart, setInShoppingCart] = useState(0); //how many are currently in the cart
   const [stock, setStock] = useState(0);
   const [reviews, setReviews] = useState([]);
-  
+
+  const [cartMessage, setCartMessage] = useState('');       
+  const [addingToCart, setAddingToCart] = useState(false);  //prevent adding mutiply times
 
   const [userRating, setUserRating] = useState(0);
   const [userReview, setUserReview] = useState('');
@@ -79,6 +84,21 @@ function BookPage() {
 
     fetchBookInfo();
   }, [bookId]);
+
+  const handleAddToCart = async () => {
+    setAddingToCart(true);
+    setCartMessage('');
+
+    const success = await addToShoppingCart(bookId, setInShoppingCart, quantity);
+
+    if (success) {
+      setCartMessage(`${quantity} ${quantity === 1 ? 'book' : 'books'} added to cart!`);
+    } else {
+      setCartMessage('Failed to add to cart.');
+    }
+
+    setAddingToCart(false);
+  };
 
   const toggleWishlist = async () => {
     try {
@@ -185,13 +205,17 @@ function BookPage() {
                             </button>
                         </div>
 
-                        <button
-                            className="addToCartButton"
-                            onClick={() => addToShoppingCart(bookId, setInShoppingCart, quantity)}
-                            disabled={stock === 0 || quantity + inShoppingCart > stock}
-                        >
-                            Add to shopping cart
-                        </button>
+                        <div>
+                            <button
+                                className="addToCartButton"
+                                onClick={handleAddToCart}
+                                disabled={addingToCart || stock === 0 || quantity + inShoppingCart > stock}
+                            >
+                                {addingToCart ? 'Adding...' : 'Add to shopping cart'}
+                            </button>
+
+                            {cartMessage && <p className="cartMessage">{cartMessage}</p>}
+                        </div>
                     </div>
                 </div>
             </section>
