@@ -31,9 +31,13 @@ try {
         $shoppingCartArray = explode(",", $shoppingCartData["shopping_cart"]);
     }
 
-    //add 1 book to shopping_cart
+    //add books to shopping_cart
     if ($action === "add") {
-        $shoppingCartArray[] = $bookID;
+        $quantity = max(1, intval($data["quantity"] ?? 1));
+
+        for ($i = 0; $i < $quantity; $i++) {
+            $shoppingCartArray[] = $bookID;
+        }
     }
     //remove 1 book from shopping_cart
     elseif ($action === "remove" && !empty($shoppingCartArray)) {

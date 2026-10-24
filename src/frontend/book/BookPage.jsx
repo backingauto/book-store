@@ -5,7 +5,7 @@ import './BookPage.css';
 import Footer from '../layout/Footer';
 import Header from '../layout/Header';
 
-export const addToShoppingCart = async (bookId, setInShoppingCart) => {
+export const addToShoppingCart = async (bookId, setInShoppingCart, quantity = 1) => {
   try {
     const response = await fetch('http://localhost/bookstore/bookstore_backend/book/update_cart.php', {
       method: 'POST',
@@ -15,7 +15,7 @@ export const addToShoppingCart = async (bookId, setInShoppingCart) => {
     });
     const data = await response.json();
     if (data.success) {
-      setInShoppingCart((prevCount) => prevCount + 1);
+      setInShoppingCart(data.inShoppingCart);
     }
   } catch (error) {
     console.error('Error updating ShoppingCart:', error);
@@ -45,9 +45,11 @@ function BookPage() {
   const [book, setBook] = useState(null);
   const [message, setMessage] = useState('');
   const [wishlist, setWishList] = useState(false);
-  const [inShoppingCart, setInShoppingCart] = useState(0);
+  const [quantity, setQuantity] = useState(1);             //how many to add to the cart
+  const [inShoppingCart, setInShoppingCart] = useState(0); //how many are currently in the cart
   const [stock, setStock] = useState(0);
   const [reviews, setReviews] = useState([]);
+  
 
   const [userRating, setUserRating] = useState(0);
   const [userReview, setUserReview] = useState('');
@@ -162,19 +164,22 @@ function BookPage() {
 
 
                         <div className="shoppingCartControls">
-                            <p>Shopping Cart</p>
+                            <p>Quantity</p>
+
                             <button
                                 className="cartButton"
-                                onClick={() => removeFromShoppingCart(bookId, setInShoppingCart)}
-                                disabled={inShoppingCart === 0}
+                                onClick={() => setQuantity(quantity - 1)}
+                                disabled={quantity <= 1}
                             >
                                 -
                             </button>
-                            <span className="cartQuantity">{inShoppingCart}</span>
+
+                            <span className="cartQuantity">{quantity}</span>
+
                             <button
                                 className="cartButton"
-                                onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
-                                disabled={inShoppingCart >= stock}
+                                onClick={() => setQuantity(quantity + 1)}
+                                disabled={quantity + inShoppingCart >= stock}
                             >
                                 +
                             </button>
@@ -182,8 +187,8 @@ function BookPage() {
 
                         <button
                             className="addToCartButton"
-                            onClick={() => addToShoppingCart(bookId, setInShoppingCart)}
-                            disabled={inShoppingCart > stock}
+                            onClick={() => addToShoppingCart(bookId, setInShoppingCart, quantity)}
+                            disabled={stock === 0 || quantity + inShoppingCart > stock}
                         >
                             Add to shopping cart
                         </button>
