@@ -65,3 +65,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.trashButton {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.trashButton:hover {
+    background-color: #fecaca;
+}

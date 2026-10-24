@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react"; 
-import { addToShoppingCart, removeFromShoppingCart } from "../book/BookPage";
 import Header from '../layout/Header';
+import { FaTrash } from 'react-icons/fa';
 
 function ShoppingCartPage() {
 
-    const [inShoppingCart, setInShoppingCart] = useState(0);
+    const [cartRefresh, setCartRefresh] = useState(0);
     const [shoppingCart, setShoppingCart] = useState([]);
     const [message, setMessage] = useState("");
 
@@ -22,7 +22,6 @@ function ShoppingCartPage() {
                 const data = await resposne.json();
                 if (data.success) {
                     setShoppingCart(data.shoppingCart);
-                    setInShoppingCart(data.shoppingCart["quantity"])
                 } else {
                     setMessage("Failed to load shoppingCart");
                 }
@@ -32,7 +31,29 @@ function ShoppingCartPage() {
             }
         }
         fetchShoppingCart();
-    }, [inShoppingCart])
+    }, [cartRefresh])
+
+    const updateCart = async (bookId, action) => {
+        try {
+            const response = await fetch("http://localhost/bookstore/bookstore_backend/book/update_cart.php", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookId, action })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setCartRefresh((prev) => prev + 1);
+            } else {
+                setMessage("Failed to update shopping cart");
+            }
+
+        } catch (error) {
+            setMessage("An error occurred while updating shopping cart");
+        }
+    };
 
     const handleCheckout = async () => {
         const confirmCheckout = window.confirm("Are you sure you want to check out?");
@@ -74,6 +95,7 @@ function ShoppingCartPage() {
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
                         {shoppingCart.map((book) => (
                             <tr key={book.id}>
@@ -85,8 +107,27 @@ function ShoppingCartPage() {
                                 <td>{book.quantity}</td>
                                 <td>${(book.price * book.quantity)}</td>
                                 <td>
-                                    <button className="cartButton" onClick={() => removeFromShoppingCart(book.id, setInShoppingCart)} disabled={book.quantity === 0}>-</button>
-                                    <button className="cartButton" onClick={() => addToShoppingCart(book.id, setInShoppingCart)}>+</button>
+                                    <button
+                                        className="cartButton"
+                                        onClick={() => updateCart(book.id, "remove")}
+                                    >
+                                        -
+                                    </button>
+
+                                    <button
+                                        className="cartButton"
+                                        onClick={() => updateCart(book.id, "add")}
+                                    >
+                                        +
+                                    </button>
+
+                                    <button
+                                        className="trashButton"
+                                        onClick={() => updateCart(book.id, "removeAll")}
+                                        title="Remove from cart"
+                                    >
+                                        <FaTrash />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
