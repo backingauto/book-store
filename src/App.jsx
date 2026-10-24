@@ -13,6 +13,7 @@ import WishListPage from './frontend/features/WishListPage';
 import ShoppingCartPage from './frontend/features/ShoppingCartPage';
 import PurchaseHistoryPage from './frontend/features/PurchaseHistoryPage';
 import ReviewPage from './frontend/features/ReviewPage';
+import ProfilePage from './frontend/features/ProfilePage';
 
 
 // check if login
@@ -62,6 +63,7 @@ function App() {
         <Route path="/shoppingCartPage" element={<ProtectedRoute><ShoppingCartPage /></ProtectedRoute>} />
         <Route path="/purchaseHistoryPage" element={<ProtectedRoute><PurchaseHistoryPage /></ProtectedRoute>} />
         <Route path="/reviewPage" element={<ProtectedRoute><ReviewPage /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
       </Routes>
 

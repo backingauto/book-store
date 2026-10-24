@@ -71,6 +71,7 @@ function Header({ isLoggedIn = false, onLogout }) {
                     <li><Link to={protectedLink('/shoppingCartPage')} className="headerLink">Shopping Cart</Link></li>
                     <li><Link to={protectedLink('/purchaseHistoryPage')} className="headerLink">Purchase History</Link></li>
                     <li><Link to={protectedLink('/reviewPage')} className="headerLink">Review History</Link></li>
+                    <li><Link to={protectedLink('/profile')} className="headerLink">My Account</Link></li>
                 </ul>
             </nav>
 

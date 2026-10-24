@@ -17,8 +17,8 @@ function RegisterPage() {
 
     const handleUsernameChange = (event) => setUsername(sanitizeInput(event.target.value));
     const handleEmailChange = (event) => setEmail(sanitizeInput(event.target.value));
-    const handlePasswordChange = (event) => setPassword(sanitizeInput(event.target.value));
-    const handlePassword2Change = (event) => setPassword2(sanitizeInput(event.target.value));
+    const handlePasswordChange = (event) => setPassword(event.target.value);
+    const handlePassword2Change = (event) => setPassword2(event.target.value);
 
     const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function RegisterPage() {
         const userData = {
             username: sanitizeInput(username),
             email: sanitizeInput(email),
-            password: sanitizeInput(password),
+            password: password,
         };
 
         try {

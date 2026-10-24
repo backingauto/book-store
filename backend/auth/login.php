@@ -11,7 +11,7 @@ if ($data == null) {
 }
 
 $usernameOrEmail = sanitize_input($data["usernameOrEmail"]);
-$password = sanitize_input($data["password"]);
+$password = $data["password"];
 
 if (empty($usernameOrEmail)) {
     echo json_encode(["success"=>false, "message"=>"Username or email is empty"]);

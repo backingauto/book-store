@@ -9,7 +9,7 @@ if ($data == null) {
 
 $username = sanitize_input($data["username"]);
 $email = sanitize_input($data["email"]);
-$password = sanitize_input($data["password"]);
+$password = $data["password"];
 
 // check if empty
 if (empty($username)) {

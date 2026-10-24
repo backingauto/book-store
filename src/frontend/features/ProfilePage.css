@@ -1,0 +1,54 @@
+
+.profilePage {
+    min-height: 100vh;
+    background: #eef2ff;
+}
+
+.profileContainer {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 120px 20px 40px;
+}
+
+.profileForm, .profileLinks {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.profileForm label {
+    text-align: left;
+}
+
+.profileForm input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.profileForm button {
+    padding: 12px;
+    background: #1f2d63;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.profileForm button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.profileMessage {
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+}
+
+.profileLinks a {
+    color: #1f2d63;
+}

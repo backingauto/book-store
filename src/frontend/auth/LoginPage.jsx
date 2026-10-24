@@ -14,7 +14,7 @@ function LoginPage() {
     const sanitizeInput = (input) => DOMPurify.sanitize(input).trim();
 
     const handleUsernameOrEmailChange = (event) => setUsernameOrEmail(sanitizeInput(event.target.value));
-    const handlePasswordChange = (event) => setPassword(sanitizeInput(event.target.value));
+    const handlePasswordChange = (event) => setPassword(event.target.value);
 
     const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ function LoginPage() {
 
         const userData = {
             usernameOrEmail: sanitizeInput(usernameOrEmail),
-            password: sanitizeInput(password),
+            password: password,
         };
 
         try {
