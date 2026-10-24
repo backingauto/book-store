@@ -15,7 +15,9 @@ export const addToShoppingCart = async (bookId, setInShoppingCart, quantity = 1)
         });
         const data = await response.json();
         if (data.success) {
+          if (setInShoppingCart) {
             setInShoppingCart(data.inShoppingCart);
+          }
             return true;
         }
         return false;
